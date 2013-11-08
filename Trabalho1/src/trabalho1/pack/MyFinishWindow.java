@@ -1,3 +1,5 @@
+package trabalho1.pack;
+
 import java.awt.event.*;
 
 /**
