@@ -2,6 +2,7 @@ package trabalho1.pack;
 
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /*
  * To change this template, choose Tools | Templates
@@ -15,26 +16,24 @@ import java.awt.*;
 public class Trabalho1 extends Frame {
 
     
-    private Point inicial = new Point(300,200);
-    private Point central = new Point(400,300);
-    private int raio = 100;
+    private static Point inicial = new Point(300,200);
+    private static Point central = new Point(400,300);
+    private static int raio = 100;
     
-    public Trabalho1()
-    {
+    Trabalho1(){
         addWindowListener(new MyFinishWindow());
     }
     
     public static void main(String[] args) {
          
-         Trabalho1 f = new Trabalho1();
-         f.setTitle("Trabalho 1");
-         f.setSize(800,600);
-         f.setVisible(true);
-         
-         
+         Trabalho1 t = new Trabalho1();
+         t.setTitle("Trabalho 1");
+         t.setSize(800,600);
+         t.setVisible(true);
+         Circle c = new Circle();
+         c.midPointAlg(raio);
+         c.circlePath();
     }
-    public void midPointAlg(){
-        
-    }
-       
+    
 }
+       
