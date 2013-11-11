@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package trabalho1.pack;
-
+import java.util.Date;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -19,13 +19,14 @@ public class Circle extends Frame {
      private int i;
      
     public Circle(){
+        addWindowListener(new MyFinishWindow());
         list = new Point[10000];
+    
     }
     
-    public void midPointAlg(int R){
+    public void paint(Graphics g){
         
-        
-        
+        int R=100;
         int x = 0 ; int y = R;
         int d,dif;
         d = 1 -R;  
@@ -53,7 +54,7 @@ public class Circle extends Frame {
            
             // g2d.fill(r2d);
         }
-        
+        circlePath(g);
     }
     public void circlePath(Graphics g){
         
@@ -99,6 +100,19 @@ public class Circle extends Frame {
         }
         i--;
         System.out.println(i);
-    }
     
+        j=0;
+        while (j<=i){
+            Rectangle2D.Double r2d=new Rectangle2D.Double(list[j].getX()+300,list[j].getY()+200,1,1);
+            g2d.fill(r2d);
+            sustain(50);
+            j++;
+        }
+    
+    }
+    public static void sustain(long t)
+    {
+	long finish = (new Date()).getTime() + t;
+	while( (new Date()).getTime() < finish ){}
+    }
 }

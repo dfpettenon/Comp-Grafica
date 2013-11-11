@@ -21,20 +21,16 @@ public class Trabalho1 extends Frame {
     private static int raio = 100;
     private static Graphics g;
     
-    Trabalho1(){
-        addWindowListener(new MyFinishWindow());
-    }
+    
     
     public static void main(String[] args) {
          
 
-         Trabalho1 t = new Trabalho1();
-         t.setTitle("Trabalho 1");
-         t.setSize(800,600);
-         t.setVisible(true);
          Circle c = new Circle();
-         c.midPointAlg(raio);
-         c.circlePath(g);
+         c.setTitle("Trabalho 1");
+         c.setSize(800,600);
+         c.setVisible(true);
+         
     }
     
 }
