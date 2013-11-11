@@ -19,6 +19,7 @@ public class Trabalho1 extends Frame {
     private static Point inicial = new Point(300,200);
     private static Point central = new Point(400,300);
     private static int raio = 100;
+    private static Graphics g;
     
     Trabalho1(){
         addWindowListener(new MyFinishWindow());
@@ -26,13 +27,14 @@ public class Trabalho1 extends Frame {
     
     public static void main(String[] args) {
          
+
          Trabalho1 t = new Trabalho1();
          t.setTitle("Trabalho 1");
          t.setSize(800,600);
          t.setVisible(true);
          Circle c = new Circle();
          c.midPointAlg(raio);
-         c.circlePath();
+         c.circlePath(g);
     }
     
 }
