@@ -62,39 +62,43 @@ public class Circle extends Frame {
         Graphics2D g2d = (Graphics2D) g;
         i++;
         int j=i-3;
-        int numP=2*i;
+        
         while (j>=0){ //1º quadrante
             list[i] = new Point();
             list[i].setX(list[j].getY());list[i].setY(list[j].getX());
             System.out.println("x= "+list[i].getX()+" y= "+list[i].getY()+"\n");
             i++;
             j--;
+            //System.out.println(i);
         }
-        j=i;
-        while (j<numP){ //2º quadrante
+        int numP=i-1;
+        j=numP-1;
+        while (j>=0){ //2º quadrante
             list[i] = new Point();
-            list[i].setX(list[j].getY());list[i].setY(-list[j].getX());
+            list[i].setX(list[j].getX());list[i].setY(-list[j].getY());
             System.out.println("x= "+list[i].getX()+" y= "+list[i].getY()+"\n");
             i++;
             j--;
         }
-        
-        while (j<numP){ //3º quadrante
+        j=i-2;
+        while (j>=numP){ //3º quadrante
             list[i] = new Point();
-            list[i].setX(-list[j].getX());list[i].setY(-list[j].getY());
+            list[i].setX(-list[j].getX());list[i].setY(list[j].getY());
             System.out.println("x= "+list[i].getX()+" y= "+list[i].getY()+"\n");
             i++;
             j--;
         }
-        
-        while (j<numP){ //4º quadrante
+        j=i-2;
+        numP=2*numP;
+        while (j>=numP){ //4º quadrante
             list[i] = new Point();
-            list[i].setX(-list[j].getY());list[i].setY(list[j].getX());
+            list[i].setX(list[j].getX());list[i].setY(-list[j].getY());
             System.out.println("x= "+list[i].getX()+" y= "+list[i].getY()+"\n");
             i++;
             j--;
         }
-        //System.out.println(i);
+        i--;
+        System.out.println(i);
     }
     
 }
