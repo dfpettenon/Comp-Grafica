@@ -22,19 +22,21 @@ public class Circle extends Frame {
    
      private Point[] list;
       private Point[] list2;
+      private Point[] segList;
      private int i;
     private int n;
      
     public Circle(){
-        addWindowListener(new MyFinishWindow());
+        
         list = new Point[2000];
         list2 = new Point[4000];
+        segList = new Point[4000];
     }
     
     public void paint(Graphics g){
         
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int R=0;
+        int R=0,S=0;
         
         System.out.println("Entre com o valor do raio para os círculos: ");
         try {
@@ -46,9 +48,21 @@ public class Circle extends Frame {
         midPointCircleAlg(R);
         circlePath();
         infinitePath(R);
-        sustain(100);
-        drawPath(g);
         
+        System.out.println("Trajeto com: "+i+" pontos");
+        
+        System.out.println("Entre com o valor do segmento para os círculos: ");
+        try {
+             S=Integer.parseInt(reader.readLine());
+        } catch (IOException ex) {
+             Logger.getLogger(Circle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        sustain(100);
+        
+        segDefinition(S);
+        drawPath(g,S);
+        //System.out.println("x= "+list2[314].getX()+" y= "+list2[314].getY()+"\n");
         System.out.println("Aperte a tecla 'Enter' para encerrar o programa."); 
         try { 
              System.in.read();
@@ -91,7 +105,7 @@ public class Circle extends Frame {
     
     public void circlePath(){
         
-        addWindowListener(new MyFinishWindow());
+        
        
         i++;
         int j=i-3;
@@ -115,7 +129,7 @@ public class Circle extends Frame {
             i++;
             j--;
         }
-        System.out.println(i);
+        //System.out.println(i);
         j=i-2;
         while (j>=numP){ //3º quadrante
             list[i] = new Point();
@@ -124,7 +138,7 @@ public class Circle extends Frame {
             i++;
             j--;
         }
-        System.out.println(i);
+       // System.out.println(i);
         j=i-2;
         numP=2*numP;
         while (j>=numP){ //4º quadrante
@@ -146,7 +160,7 @@ public class Circle extends Frame {
             while(j+temp<=thirQua-1){
                 list2[j] = new Point();
                 list2[j].setX(-list[j+temp].getY()+offsetX);list2[j].setY(-list[j+temp].getX()+offsetY);
-                System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
+                //System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
                 j++;
                 
             }
@@ -156,7 +170,7 @@ public class Circle extends Frame {
             while(k+temp<=i){
                 list2[j] = new Point();
                 list2[j].setX(list[k+temp].getX()+offsetX+2*R);list2[j].setY(list[k+temp].getY()+offsetY);
-                System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
+               // System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
                 k++;
                 j++;
             }
@@ -165,7 +179,7 @@ public class Circle extends Frame {
             while(k<=fourQua-1){
                 list2[j] = new Point();
                 list2[j].setX(list[k].getX()+offsetX+2*R);list2[j].setY(list[k].getY()+offsetY);
-                System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
+              //  System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
                 k++;
                 j++;
             }
@@ -173,26 +187,55 @@ public class Circle extends Frame {
             while(temp2<=k){
                 list2[j] = new Point();
                 list2[j].setX(-(list2[temp2].getX()-offsetX-2*R)+offsetX);list2[j].setY(list2[temp2].getY());
-                System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
+               // System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
                 temp2++;
                 j++;
             }
             
             
-            i=j;
+            i=j-1; //  -1 pelo incremento ao j adicionado no final da última iteração do útlimo while -1 pelo ponto extra no final do trajeto e +1 pelo i começar em 0; 
             
     }
     
-    public void drawPath(Graphics g){
+    public void drawPath(Graphics g,int s){
+        sustain(2000);
+        
         Graphics2D g2d = (Graphics2D) g;
         int j=0;
-        while (j<=i-1){
-            Rectangle2D.Double r2d=new Rectangle2D.Double(list2[j].getX(),list2[j].getY(),3,3);
+        while (j<s){
+            Rectangle2D.Double r2d=new Rectangle2D.Double(segList[j].getX(),segList[j].getY(),6,6);
+            g2d.fill(r2d);
+            sustain(1);
+            j++;
+        }
+        j=0;
+        while (j<i-1){
+            Rectangle2D.Double r2d=new Rectangle2D.Double(list2[j].getX(),list2[j].getY(),1,1);
             g2d.fill(r2d);
             sustain(10);
             j++;
         }
+    }
+    public void segDefinition(int s){
+        int segTam,j,temp;
+        segTam=i/s;
+        temp=0;
+        j=0;
         
+        while(temp<i){
+            segList[j] = new Point();
+            segList[j].setX(list2[temp].getX());segList[j].setY(list2[temp].getY());
+            System.out.println(temp);
+            j++;
+            temp+=segTam;
+            
+        }
+       /* j=0;
+        while(j<s){
+            System.out.println("x= "+segList[j].getX()+" y= "+segList[j].getY()+"\n");
+            j++;
+            
+        }*/
     }
     
     public static void sustain(long t)
