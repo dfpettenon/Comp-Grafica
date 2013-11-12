@@ -43,6 +43,22 @@ public class Circle extends Frame {
              Logger.getLogger(Circle.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        midPointCircleAlg(R);
+        circlePath();
+        infinitePath(R);
+        sustain(100);
+        drawPath(g);
+        
+        System.out.println("Aperte a tecla 'Enter' para encerrar o programa."); 
+        try { 
+             System.in.read();
+         } catch (IOException ex) {
+             Logger.getLogger(Circle.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        Runtime.getRuntime().exit(n);
+    }
+    
+    public void midPointCircleAlg(int R){
         int x = 0 ; int y = R;
         int d,dif;
         d = R -1;     
@@ -50,10 +66,9 @@ public class Circle extends Frame {
         i=0;
         list[i] = new Point();
         list[i].setX(x);list[i].setY(y);
-        //System.out.println("x= "+list[i].getX()+" y= "+list[i].getY()+"\n");
         
-        //Rectangle2D.Double r2d=new Rectangle2D.Double(x,y,30,30);
-       // g2d.fill(r2d);
+        
+       
         while (x<y) { // Calcula o primeiro octante do círculo
             
             if (d > 0) {  // SE escolhido 
@@ -66,25 +81,18 @@ public class Circle extends Frame {
             i++;
             list[i] = new Point();
             list[i].setX(x);list[i].setY(y);
-            //System.out.println("x= "+list[i].getX()+" y= "+list[i].getY()+"\n");
             d=d+dif;
            
-            // g2d.fill(r2d);
+            
         }
-        circlePath(g,R);
-        System.out.println("Aperte a tecla 'Enter' para encerrar o programa."); 
-        try { 
-             System.in.read();
-         } catch (IOException ex) {
-             Logger.getLogger(Circle.class.getName()).log(Level.SEVERE, null, ex);
-         }
-        Runtime.getRuntime().exit(n);
     }
-    public void circlePath(Graphics g,int R){
+    
+    
+    
+    public void circlePath(){
         
         addWindowListener(new MyFinishWindow());
-        
-        Graphics2D g2d = (Graphics2D) g;
+       
         i++;
         int j=i-3;
         
@@ -127,25 +135,11 @@ public class Circle extends Frame {
             j--;
         }
         i--;
-        System.out.println(i);
-        infinitePath(R);
-        sustain(100);
-        
-      
-        j=0;
-        while (j<=i-1){
-            Rectangle2D.Double r2d=new Rectangle2D.Double(list2[j].getX(),list2[j].getY(),3,3);
-            g2d.fill(r2d);
-            sustain(10);
-            j++;
-        }
-        
-        
-        
     }
+    
     public void infinitePath(int R){
-            int offsetX=400, offsetY=300;
-            int temp,temp2,k=0,j=0,firQua=0,secQua=(i/4)+1,thirQua=(2*secQua)-1,fourQua=(3*secQua)-2;
+            int offsetX=400-R, offsetY=300;
+            int temp,temp2,k,j=0,secQua=(i/4)+1,thirQua=(2*secQua)-1,fourQua=(3*secQua)-2;
                       
             //1º quadrante
             temp =secQua-1;
@@ -189,6 +183,17 @@ public class Circle extends Frame {
             
     }
     
+    public void drawPath(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        int j=0;
+        while (j<=i-1){
+            Rectangle2D.Double r2d=new Rectangle2D.Double(list2[j].getX(),list2[j].getY(),3,3);
+            g2d.fill(r2d);
+            sustain(10);
+            j++;
+        }
+        
+    }
     
     public static void sustain(long t)
     {
