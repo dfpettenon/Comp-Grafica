@@ -4,10 +4,8 @@
  */
 package trabalho1.pack;
 import java.util.Date;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.*;
+import java.awt.geom.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -81,7 +79,6 @@ public class Circle extends Frame {
         list[i] = new Point();
         list[i].setX(x);list[i].setY(y);
         
-        
        
         while (x<y) { // Calcula o primeiro octante do círculo
             
@@ -117,9 +114,7 @@ public class Circle extends Frame {
             i++;
             j--;
             
-        }
-        //System.out.println(i);
-       
+        }       
         int numP=i-1;
         j=numP-1;
         while (j>=0){ //2º quadrante
@@ -129,7 +124,6 @@ public class Circle extends Frame {
             i++;
             j--;
         }
-        //System.out.println(i);
         j=i-2;
         while (j>=numP){ //3º quadrante
             list[i] = new Point();
@@ -138,7 +132,6 @@ public class Circle extends Frame {
             i++;
             j--;
         }
-       // System.out.println(i);
         j=i-2;
         numP=2*numP;
         while (j>=numP){ //4º quadrante
@@ -152,7 +145,7 @@ public class Circle extends Frame {
     }
     
     public void infinitePath(int R){
-            int offsetX=600-R, offsetY=300;
+            int offsetX=300-R, offsetY=150;
             int temp,temp2,k,j=0,secQua=(i/4)+1,thirQua=(2*secQua)-1,fourQua=(3*secQua)-2;
                       
             //1º quadrante
@@ -162,7 +155,6 @@ public class Circle extends Frame {
                 list2[j].setX(-list[j+temp].getY()+offsetX);list2[j].setY(-list[j+temp].getX()+offsetY);
                 //System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
                 j++;
-                
             }
             temp2=j;
             k=0;// 2º quadrante
@@ -175,7 +167,6 @@ public class Circle extends Frame {
                 j++;
             }
             k=0; // 3º, 4º e 5º quadrantes 
-            temp=j;
             while(k<=fourQua-1){
                 list2[j] = new Point();
                 list2[j].setX(list[k].getX()+offsetX+2*R);list2[j].setY(list[k].getY()+offsetY);
@@ -191,30 +182,80 @@ public class Circle extends Frame {
                 temp2++;
                 j++;
             }
-            
-            
             i=j-1; //  -1 pelo incremento ao j adicionado no final da última iteração do útlimo while -1 pelo ponto extra no final do trajeto e +1 pelo i começar em 0; 
             
     }
     
-    public void drawPath(Graphics g,int s){
-        sustain(2000);
-        
+    public void drawPath(Graphics g,int s){        
         Graphics2D g2d = (Graphics2D) g;
-        int j=0;
-        while (j<s){
-            Rectangle2D.Double r2d=new Rectangle2D.Double(segList[j].getX(),segList[j].getY(),6,6);
-            g2d.fill(r2d);
-            sustain(1);
+        int j=0, h1=50, h2=30, xmid, ymid, a=0, steps=10;
+        double ang45 = Math.PI/4, stepsDB=steps, scale=50/30;
+        boolean ida=true;
+        segList[s].setX(segList[0].getX());
+        segList[s].setY(segList[0].getY());
+        while (j<s){//quadrados
+            
+            Rectangle2D.Double ret=new Rectangle2D.Double(segList[j].getX(),segList[j].getY(),h1,h1);
+            AffineTransform TransIni = new AffineTransform();
+            TransIni.setToTranslation(segList[j].getX(),segList[j].getY());
+            AffineTransform TransFin = new AffineTransform();
+            TransFin.setToTranslation(segList[j+1].getX(),segList[j+1].getY());
+            if(ida){
+                xmid=segList[j].getX()+(h1/2);
+                ymid=segList[j].getY()+(h1/2);
+                TransFin.rotate(ang45,xmid,ymid);
+                TransFin.concatenate(scalingWRTXY(xmid,ymid,2,0.5));
+            }
+            else{
+                xmid=segList[j+1].getX()+(h2/2);
+                ymid=segList[j+1].getY()+(h2/2);
+                TransIni.rotate(ang45,xmid,ymid);
+                TransFin.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
+            }
+            ida=!ida;
+            Shape meio;
+            double[] initialMatrix = new double[6];
+            TransIni.getMatrix(initialMatrix);
+            double[] finalMatrix = new double[6];
+            TransFin.getMatrix(finalMatrix);            
+            
+            for (a=0; a<=steps; a++){
+                AffineTransform TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,a/stepsDB));
+                meio=TransMeio.createTransformedShape(ret);
+                sustain(50);
+                clearWindow(g2d);
+                g2d.fill(meio);
+            }
             j++;
         }
+        
+        /*
         j=0;
-        while (j<i-1){
+        while (j<i-1){//caminho
             Rectangle2D.Double r2d=new Rectangle2D.Double(list2[j].getX(),list2[j].getY(),1,1);
             g2d.fill(r2d);
             sustain(10);
             j++;
+        }*/
+    }
+    public static void clearWindow(Graphics2D g){
+        g.setPaint(Color.white);
+        g.fill(new Rectangle(0,0,1200,600));
+        g.setPaint(Color.black);
+    }
+    public static double[] convexCombination(double[] a, double[] b, double alpha){
+        double[] result = new double[a.length];
+        for (int i=0; i<result.length; i++){
+            result[i] = (1-alpha)*a[i] + alpha*b[i];
         }
+        return(result);
+    }
+    public static AffineTransform scalingWRTXY(double x, double y, double xs, double ys){
+        AffineTransform at = new AffineTransform();
+        at.translate(x,y);
+        at.scale(xs,ys);
+        at.translate(-x,-y);
+        return(at);
     }
     public void segDefinition(int s){
         int segTam,j,temp;
