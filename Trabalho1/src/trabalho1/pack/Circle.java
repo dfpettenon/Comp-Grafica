@@ -188,27 +188,30 @@ public class Circle extends Frame {
     
     public void drawPath(Graphics g,int s){        
         Graphics2D g2d = (Graphics2D) g;
-        int j=0, h1=50, h2=30, xmid, ymid, a=0, steps=10;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        int j=0, xmid, ymid, a=0, steps=5;
         double ang45 = Math.PI/4, stepsDB=steps, scale=50/30;
         boolean ida=true;
         segList[s].setX(segList[0].getX());
         segList[s].setY(segList[0].getY());
         while (j<s){//quadrados
             
-            Rectangle2D.Double ret=new Rectangle2D.Double(segList[j].getX(),segList[j].getY(),h1,h1);
+            Rectangle2D.Double ret=new Rectangle2D.Double(segList[j].getX(),segList[j].getY(),50,50);
             AffineTransform TransIni = new AffineTransform();
             TransIni.setToTranslation(segList[j].getX(),segList[j].getY());
             AffineTransform TransFin = new AffineTransform();
             TransFin.setToTranslation(segList[j+1].getX(),segList[j+1].getY());
-            xmid=segList[j].getX()+(h1/2);
-            ymid=segList[j].getY()+(h1/2);
             if(ida){
+                xmid=segList[j].getX()+25;
+                ymid=segList[j].getY()+25;                
                 TransFin.rotate(ang45,xmid,ymid);
-                TransFin.concatenate(scalingWRTXY(xmid,ymid,2,0.5));
+                TransFin.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
             }
             else{
+                xmid=segList[j].getX()+15;
+                ymid=segList[j].getY()+15;
                 TransIni.rotate(ang45,xmid,ymid);
-                TransFin.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
+                TransIni.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
             }
             ida=!ida;
             Shape meio;
@@ -220,7 +223,7 @@ public class Circle extends Frame {
             for (a=0; a<=steps; a++){
                 AffineTransform TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,a/stepsDB));
                 meio=TransMeio.createTransformedShape(ret);
-                sustain(50);
+                sustain(100);
                 clearWindow(g2d);
                 g2d.fill(meio);
             }
