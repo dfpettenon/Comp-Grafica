@@ -28,7 +28,7 @@ public class Trabalho1 extends Frame {
 
          Circle c = new Circle();
          c.setTitle("Trabalho 1");
-         c.setSize(800,600);
+         c.setSize(1200,600);
          c.setVisible(true);
          
     }
