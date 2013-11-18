@@ -200,15 +200,13 @@ public class Circle extends Frame {
             TransIni.setToTranslation(segList[j].getX(),segList[j].getY());
             AffineTransform TransFin = new AffineTransform();
             TransFin.setToTranslation(segList[j+1].getX(),segList[j+1].getY());
+            xmid=segList[j].getX()+(h1/2);
+            ymid=segList[j].getY()+(h1/2);
             if(ida){
-                xmid=segList[j].getX()+(h1/2);
-                ymid=segList[j].getY()+(h1/2);
                 TransFin.rotate(ang45,xmid,ymid);
                 TransFin.concatenate(scalingWRTXY(xmid,ymid,2,0.5));
             }
             else{
-                xmid=segList[j+1].getX()+(h2/2);
-                ymid=segList[j+1].getY()+(h2/2);
                 TransIni.rotate(ang45,xmid,ymid);
                 TransFin.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
             }
