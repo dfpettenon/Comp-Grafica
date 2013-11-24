@@ -195,15 +195,17 @@ public class Circle extends Frame {
         segList[s].setX(segList[0].getX());
         segList[s].setY(segList[0].getY());
         while (j<s){//quadrados
-            
+
             Rectangle2D.Double ret=new Rectangle2D.Double(segList[j].getX(),segList[j].getY(),50,50);
+            Rectangle2D.Double a1=new Rectangle2D.Double(segList[j].getX(),segList[j].getY(),1,1);
+            Rectangle2D.Double a2=new Rectangle2D.Double(segList[j+1].getX(),segList[j+1].getY(),1,1);
             AffineTransform TransIni = new AffineTransform();
-            TransIni.setToTranslation(segList[j].getX(),segList[j].getY());
+            TransIni.translate(segList[j].getX(),segList[j].getY());
             AffineTransform TransFin = new AffineTransform();
-            TransFin.setToTranslation(segList[j+1].getX(),segList[j+1].getY());
+            TransFin.translate(segList[j+1].getX(),segList[j+1].getY());
             if(ida){
                 xmid=segList[j].getX()+25;
-                ymid=segList[j].getY()+25;                
+                ymid=segList[j].getY()+25;
                 TransFin.rotate(ang45,xmid,ymid);
                 TransFin.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
             }
@@ -214,18 +216,21 @@ public class Circle extends Frame {
                 TransIni.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
             }
             ida=!ida;
-            Shape meio;
             double[] initialMatrix = new double[6];
             TransIni.getMatrix(initialMatrix);
             double[] finalMatrix = new double[6];
-            TransFin.getMatrix(finalMatrix);            
+            TransFin.getMatrix(finalMatrix);
             
             for (a=0; a<=steps; a++){
                 AffineTransform TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,a/stepsDB));
-                meio=TransMeio.createTransformedShape(ret);
-                sustain(100);
+                sustain(300);
                 clearWindow(g2d);
-                g2d.fill(meio);
+                g2d.setPaint(Color.red);
+                g2d.draw(a1);
+                g2d.setPaint(Color.green);
+                g2d.draw(a2);
+                g2d.setPaint(Color.black);
+                g2d.fill(TransMeio.createTransformedShape(ret));
             }
             j++;
         }
@@ -266,7 +271,8 @@ public class Circle extends Frame {
         
         while(temp<i){
             segList[j] = new Point();
-            segList[j].setX(list2[temp].getX());segList[j].setY(list2[temp].getY());
+            segList[j].setX(list2[temp].getX());
+            segList[j].setY(list2[temp].getY());
             System.out.println(temp);
             j++;
             temp+=segTam;
