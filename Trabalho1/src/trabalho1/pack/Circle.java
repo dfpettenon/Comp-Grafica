@@ -145,7 +145,8 @@ public class Circle extends Frame {
     }
     
     public void infinitePath(int R){
-            int offsetX=300-R, offsetY=150;
+            
+            int offsetX=600-R, offsetY=300;//600-R e 300
             int temp,temp2,k,j=0,secQua=(i/4)+1,thirQua=(2*secQua)-1,fourQua=(3*secQua)-2;
                       
             //1º quadrante
@@ -189,29 +190,31 @@ public class Circle extends Frame {
     public void drawPath(Graphics g,int s){        
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int j=0, xmid, ymid, a=0, steps=5;
+        int j=0, xmid, ymid, a=0, steps=10;
         double ang45 = Math.PI/4, stepsDB=steps, scale=50/30;
         boolean ida=true;
+        segList[s] = new Point();
         segList[s].setX(segList[0].getX());
         segList[s].setY(segList[0].getY());
         while (j<s){//quadrados
 
-            Rectangle2D.Double ret=new Rectangle2D.Double(segList[j].getX(),segList[j].getY(),50,50);
-            Rectangle2D.Double a1=new Rectangle2D.Double(segList[j].getX(),segList[j].getY(),1,1);
-            Rectangle2D.Double a2=new Rectangle2D.Double(segList[j+1].getX(),segList[j+1].getY(),1,1);
+            Rectangle2D.Double ret=new Rectangle2D.Double(segList[j].getX()/2,segList[j].getY()/2,50,50);
+            Rectangle2D.Double a1=new Rectangle2D.Double(segList[j].getX()/2,segList[j].getY()/2,1,1);
+            Rectangle2D.Double a2=new Rectangle2D.Double(segList[j+1].getX()/2,segList[j+1].getY()/2,1,1);
+           
             AffineTransform TransIni = new AffineTransform();
-            TransIni.translate(segList[j].getX(),segList[j].getY());
+            TransIni.translate(segList[j].getX()/2,segList[j].getY()/2);
             AffineTransform TransFin = new AffineTransform();
-            TransFin.translate(segList[j+1].getX(),segList[j+1].getY());
+            TransFin.translate(segList[j+1].getX()/2,segList[j+1].getY()/2);
             if(ida){
-                xmid=segList[j].getX()+25;
-                ymid=segList[j].getY()+25;
+                xmid=segList[j].getX()/2+25;
+                ymid=segList[j].getY()/2+25;
                 TransFin.rotate(ang45,xmid,ymid);
                 TransFin.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
             }
             else{
-                xmid=segList[j].getX()+15;
-                ymid=segList[j].getY()+15;
+                xmid=segList[j].getX()/2+15;
+                ymid=segList[j].getY()/2+15;
                 TransIni.rotate(ang45,xmid,ymid);
                 TransIni.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
             }
@@ -269,7 +272,7 @@ public class Circle extends Frame {
         temp=0;
         j=0;
         
-        while(temp<i){
+        while(j<s){
             segList[j] = new Point();
             segList[j].setX(list2[temp].getX());
             segList[j].setY(list2[temp].getY());
