@@ -34,9 +34,9 @@ public class Circle extends Frame {
     public void paint(Graphics g){
         
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int R=0,S=0;
+        int R=0,S=0,steps=0;
         
-        System.out.println("Entre com o valor do raio para os círculos: ");
+        System.out.println("Raio: ");
         try {
              R=Integer.parseInt(reader.readLine());
         } catch (IOException ex) {
@@ -49,17 +49,22 @@ public class Circle extends Frame {
         
         System.out.println("Trajeto com: "+i+" pontos");
         
-        System.out.println("Entre com o valor do segmento para os círculos: ");
+        System.out.println("Segmentos: ");
         try {
              S=Integer.parseInt(reader.readLine());
         } catch (IOException ex) {
              Logger.getLogger(Circle.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        System.out.println("Steps: ");
+        try {
+             steps=Integer.parseInt(reader.readLine());
+        } catch (IOException ex) {
+             Logger.getLogger(Circle.class.getName()).log(Level.SEVERE, null, ex);
+        }
         sustain(100);
         
         segDefinition(S);
-        drawPath(g,S);
+        drawPath(g,S,steps);
         //System.out.println("x= "+list2[314].getX()+" y= "+list2[314].getY()+"\n");
         System.out.println("Aperte a tecla 'Enter' para encerrar o programa."); 
         try { 
@@ -187,10 +192,10 @@ public class Circle extends Frame {
             
     }
     
-    public void drawPath(Graphics g,int s){        
+    public void drawPath(Graphics g,int s,int steps){        
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int j=0, xmid, ymid, a=0, steps=10;
+        int j=0, xmid, ymid, a=0;
         double ang45 = Math.PI/4, stepsDB=steps, scale=50/30;
         boolean ida=true;
         segList[s] = new Point();
@@ -199,9 +204,7 @@ public class Circle extends Frame {
         while (j<s){//quadrados
 
             Rectangle2D.Double ret=new Rectangle2D.Double(segList[j].getX()/2,segList[j].getY()/2,50,50);
-            Rectangle2D.Double a1=new Rectangle2D.Double(segList[j].getX(),segList[j].getY(),1,1);
-            Rectangle2D.Double a2=new Rectangle2D.Double(segList[j+1].getX(),segList[j+1].getY(),1,1);
-           
+            
             AffineTransform TransIni = new AffineTransform();
             TransIni.translate(segList[j].getX()/2,segList[j].getY()/2);
             AffineTransform TransFin = new AffineTransform();
@@ -220,10 +223,13 @@ public class Circle extends Frame {
             }
             ida=!ida;
             double[] initialMatrix = new double[6];
+            Shape retIni = TransIni.createTransformedShape(ret);
             TransIni.getMatrix(initialMatrix);
             
             double[] finalMatrix = new double[6];
+            Shape retFin = TransFin.createTransformedShape(ret);
             TransFin.getMatrix(finalMatrix);
+            
             
             AffineTransform TransMeio;
             for (a=0; a<=steps; a++){
@@ -232,9 +238,9 @@ public class Circle extends Frame {
                 clearWindow(g2d);
                 
                 g2d.setPaint(Color.red);
-                g2d.draw(a1);
+                g2d.draw(retIni);
                 g2d.setPaint(Color.green);
-                g2d.draw(a2);
+                g2d.draw(retFin);
                 
                 g2d.setPaint(Color.black);
                 g2d.fill(TransMeio.createTransformedShape(ret));
