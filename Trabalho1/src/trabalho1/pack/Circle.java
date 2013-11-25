@@ -207,17 +207,16 @@ public class Circle extends Frame {
             
             AffineTransform TransIni = new AffineTransform();
             TransIni.translate(segList[j].getX()/2,segList[j].getY()/2);
+            xmid=segList[j].getX()/2;
+            ymid=segList[j].getY()/2;
             AffineTransform TransFin = new AffineTransform();
-            TransFin.translate(segList[j+1].getX()/2,segList[j+1].getY()/2);
+            j++;
+            TransFin.translate(segList[j].getX()/2,segList[j].getY()/2);
             if(ida){
-                xmid=(segList[j].getX()+25)/2;
-                ymid=(segList[j].getY()+25)/2;
                 TransFin.rotate(ang45,xmid,ymid);
                 TransFin.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
             }
             else{
-                xmid=(segList[j].getX()+15)/2;
-                ymid=(segList[j].getY()+15)/2;
                 TransIni.rotate(ang45,xmid,ymid);
                 TransIni.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
             }
@@ -245,7 +244,6 @@ public class Circle extends Frame {
                 g2d.setPaint(Color.black);
                 g2d.fill(TransMeio.createTransformedShape(ret));
             }
-            j++;
         }
         
         /*
