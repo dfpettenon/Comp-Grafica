@@ -199,39 +199,43 @@ public class Circle extends Frame {
         while (j<s){//quadrados
 
             Rectangle2D.Double ret=new Rectangle2D.Double(segList[j].getX()/2,segList[j].getY()/2,50,50);
-            Rectangle2D.Double a1=new Rectangle2D.Double(segList[j].getX()/2,segList[j].getY()/2,1,1);
-            Rectangle2D.Double a2=new Rectangle2D.Double(segList[j+1].getX()/2,segList[j+1].getY()/2,1,1);
+            Rectangle2D.Double a1=new Rectangle2D.Double(segList[j].getX(),segList[j].getY(),1,1);
+            Rectangle2D.Double a2=new Rectangle2D.Double(segList[j+1].getX(),segList[j+1].getY(),1,1);
            
             AffineTransform TransIni = new AffineTransform();
             TransIni.translate(segList[j].getX()/2,segList[j].getY()/2);
             AffineTransform TransFin = new AffineTransform();
             TransFin.translate(segList[j+1].getX()/2,segList[j+1].getY()/2);
             if(ida){
-                xmid=segList[j].getX()/2+25;
-                ymid=segList[j].getY()/2+25;
+                xmid=(segList[j].getX()+25)/2;
+                ymid=(segList[j].getY()+25)/2;
                 TransFin.rotate(ang45,xmid,ymid);
                 TransFin.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
             }
             else{
-                xmid=segList[j].getX()/2+15;
-                ymid=segList[j].getY()/2+15;
+                xmid=(segList[j].getX()+15)/2;
+                ymid=(segList[j].getY()+15)/2;
                 TransIni.rotate(ang45,xmid,ymid);
                 TransIni.concatenate(scalingWRTXY(xmid,ymid,scale,scale));
             }
             ida=!ida;
             double[] initialMatrix = new double[6];
             TransIni.getMatrix(initialMatrix);
+            
             double[] finalMatrix = new double[6];
             TransFin.getMatrix(finalMatrix);
             
+            AffineTransform TransMeio;
             for (a=0; a<=steps; a++){
-                AffineTransform TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,a/stepsDB));
-                sustain(300);
+                TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,(double)a/stepsDB));
+                sustain(100);
                 clearWindow(g2d);
+                
                 g2d.setPaint(Color.red);
                 g2d.draw(a1);
                 g2d.setPaint(Color.green);
                 g2d.draw(a2);
+                
                 g2d.setPaint(Color.black);
                 g2d.fill(TransMeio.createTransformedShape(ret));
             }
