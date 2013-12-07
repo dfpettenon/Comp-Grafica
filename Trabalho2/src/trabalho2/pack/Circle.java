@@ -199,12 +199,12 @@ public class Circle extends Frame {
             Rectangle2D.Double ret=new Rectangle2D.Double(0,0,50,50);
             
             AffineTransform TransIni = new AffineTransform();
-            TransIni.translate(segList[j].getX()/2,segList[j].getY()/2);
+            TransIni.translate(segList[j].getX(),segList[j].getY());
             
             j++;
 
             AffineTransform TransFin = new AffineTransform();
-            TransFin.translate(segList[j].getX()/2,segList[j].getY()/2);
+            TransFin.translate(segList[j].getX(),segList[j].getY());
             
             double[] initialMatrix = new double[6];
             Shape retIni = TransIni.createTransformedShape(ret);
@@ -217,7 +217,6 @@ public class Circle extends Frame {
             AffineTransform TransMeio;
             for (a=0; a<=steps; a++){
                 TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,(double)a/stepsDB));
-                sustain(100);
                 clearWindow(g2d);
                 
                 g2d.setPaint(Color.red);
@@ -227,6 +226,7 @@ public class Circle extends Frame {
                 
                 g2d.setPaint(Color.black);
                 g2d.fill(TransMeio.createTransformedShape(ret));
+                sustain(100);                
             }
         }
         
