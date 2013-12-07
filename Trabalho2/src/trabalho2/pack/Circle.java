@@ -196,12 +196,13 @@ public class Circle extends Frame {
         segList[s].setY(segList[0].getY());
         while (j<s){//quadrados
 
-            Rectangle2D.Double ret=new Rectangle2D.Double(segList[j].getX()/2,segList[j].getY()/2,50,50);
+            Rectangle2D.Double ret=new Rectangle2D.Double(0,0,50,50);
             
             AffineTransform TransIni = new AffineTransform();
             TransIni.translate(segList[j].getX()/2,segList[j].getY()/2);
             
             j++;
+
             AffineTransform TransFin = new AffineTransform();
             TransFin.translate(segList[j].getX()/2,segList[j].getY()/2);
             
