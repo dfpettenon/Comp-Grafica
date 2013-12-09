@@ -37,7 +37,7 @@ public class Circle extends Frame {
     public void paint(Graphics g){
         
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int R=0,S=0,steps=0;
+        int R=0,steps=0;
         
         System.out.println("Raio: ");
         try {
@@ -200,7 +200,13 @@ public class Circle extends Frame {
         tImage[0] = new TriangulatedImage();
         tImage[0].bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
+        
+        
+        //Pontos aqui
+        
+        
         tImage[0].triangles = new int[18][3];            
+       
         tImage[0].triangles[0][0] = 0;
         tImage[0].triangles[0][1] = 3;
         tImage[0].triangles[0][2] = 4;
@@ -273,12 +279,32 @@ public class Circle extends Frame {
         tImage[0].triangles[17][1] = 12;
         tImage[0].triangles[17][2] = 13;         
         
-        
         loadedImage = new javax.swing.ImageIcon( j + ".png").getImage();
-        Graphics2D g2dt1 = tImage[0].bi.createGraphics();
-        g2dt1.drawImage(loadedImage,0,0,null);
+        Graphics2D g2dtImage = tImage[0].bi.createGraphics();
+        g2dtImage.drawImage(loadedImage,0,0,null);
         
-        int k=0;
+        int k=1;
+        while (k<16){
+            
+            //Pontos aqui
+            
+            tImage[0] = new TriangulatedImage();
+            tImage[0].bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+            tImage[k].triangles = tImage[0].triangles;
+            
+            loadedImage = new javax.swing.ImageIcon( j + ".png").getImage();
+            g2dtImage = tImage[k].bi.createGraphics();
+            g2dtImage.drawImage(loadedImage,0,0,null);
+            
+            k++;
+        }
+        
+        
+        
+        
+        
+        
         while (j<s){//quadrados
 
             Rectangle2D.Double ret=new Rectangle2D.Double(0,0,1,1);
@@ -299,21 +325,7 @@ public class Circle extends Frame {
             
             AffineTransform TransMeio;
             
-            
-
-            tImage[k].triangles = tImage[0].triangles;
-            
-            loadedImage = new javax.swing.ImageIcon( j + ".png").getImage();
-            Graphics2D g2dt1 = tImage[0].bi.createGraphics();
-            g2dt1.drawImage(loadedImage,0,0,null);
-            //pontos t1
-            
-            t2.bi = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
-            loadedImage = new javax.swing.ImageIcon( j+1 + ".png").getImage();
-            Graphics2D g2dt2 = tImage[0].bi.createGraphics();
-            g2dt2.drawImage(loadedImage,0,0,null);
-            //pontos t2
-            
+  
             for (a=0; a<=steps; a++){
                 TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,(double)a/stepsDB));
                 mix = tImage[k].mixWith(tImage[k+1],a);
