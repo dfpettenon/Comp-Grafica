@@ -6,11 +6,14 @@ package trabalho2.pack;
 import java.util.Date;
 import java.awt.*;
 import java.awt.geom.*;
+import java.awt.Image.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 /**
  *
@@ -59,7 +62,6 @@ public class Circle extends Frame {
         
         segDefinition(16);
         drawPath(g,16,steps);
-        //System.out.println("x= "+list2[314].getX()+" y= "+list2[314].getY()+"\n");
         System.out.println("Aperte a tecla 'Enter' para encerrar o programa."); 
         try { 
              System.in.read();
@@ -109,7 +111,6 @@ public class Circle extends Frame {
         while (j>=0){ //1º quadrante
             list[i] = new Point();
             list[i].setX(list[j].getY());list[i].setY(list[j].getX());
-            //System.out.println("x= "+list[i].getX()+" y= "+list[i].getY()+"\n");
             i++;
             j--;
             
@@ -119,7 +120,6 @@ public class Circle extends Frame {
         while (j>=0){ //2º quadrante
             list[i] = new Point();
             list[i].setX(list[j].getX());list[i].setY(-list[j].getY());
-            //System.out.println("x= "+list[i].getX()+" y= "+list[i].getY()+"\n");
             i++;
             j--;
         }
@@ -127,7 +127,6 @@ public class Circle extends Frame {
         while (j>=numP){ //3º quadrante
             list[i] = new Point();
             list[i].setX(-list[j].getX());list[i].setY(list[j].getY());
-            //System.out.println("x= "+list[i].getX()+" y= "+list[i].getY()+"\n");
             i++;
             j--;
         }
@@ -136,7 +135,6 @@ public class Circle extends Frame {
         while (j>=numP){ //4º quadrante
             list[i] = new Point();
             list[i].setX(list[j].getX());list[i].setY(-list[j].getY());
-            //System.out.println("x= "+list[i].getX()+" y= "+list[i].getY()+"\n");
             i++;
             j--;
         }
@@ -153,7 +151,6 @@ public class Circle extends Frame {
             while(j+temp<=thirQua-1){
                 list2[j] = new Point();
                 list2[j].setX(-list[j+temp].getY()+offsetX);list2[j].setY(-list[j+temp].getX()+offsetY);
-                //System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
                 j++;
             }
             temp2=j;
@@ -162,7 +159,6 @@ public class Circle extends Frame {
             while(k+temp<=i){
                 list2[j] = new Point();
                 list2[j].setX(list[k+temp].getX()+offsetX+2*R);list2[j].setY(list[k+temp].getY()+offsetY);
-               // System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
                 k++;
                 j++;
             }
@@ -170,7 +166,6 @@ public class Circle extends Frame {
             while(k<=fourQua-1){
                 list2[j] = new Point();
                 list2[j].setX(list[k].getX()+offsetX+2*R);list2[j].setY(list[k].getY()+offsetY);
-              //  System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
                 k++;
                 j++;
             }
@@ -178,7 +173,6 @@ public class Circle extends Frame {
             while(temp2<=k){
                 list2[j] = new Point();
                 list2[j].setX(-(list2[temp2].getX()-offsetX-2*R)+offsetX);list2[j].setY(list2[temp2].getY());
-               // System.out.println("x= "+list2[j].getX()+" y= "+list2[j].getY()+"\n");
                 temp2++;
                 j++;
             }
@@ -189,14 +183,105 @@ public class Circle extends Frame {
     public void drawPath(Graphics g,int s,int steps){        
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int j=0, a;
+        int j=0, a, width=256, height=144;
         double stepsDB=steps;
+        
+        
         segList[s] = new Point();
         segList[s].setX(segList[0].getX());
         segList[s].setY(segList[0].getY());
+        
+        BufferedImage bi = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+        Image loadedImage;
+        BufferedImageDrawer bid = new BufferedImageDrawer(bi,width,height);
+        BufferedImage mix;        
+        
+        TriangulatedImage[] tImage = new TriangulatedImage[16];        
+        tImage[0] = new TriangulatedImage();
+        tImage[0].bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+        tImage[0].triangles = new int[18][3];            
+        tImage[0].triangles[0][0] = 0;
+        tImage[0].triangles[0][1] = 3;
+        tImage[0].triangles[0][2] = 4;
+
+        tImage[0].triangles[1][0] = 0;
+        tImage[0].triangles[1][1] = 1;
+        tImage[0].triangles[1][2] = 4;
+
+        tImage[0].triangles[2][0] = 1;
+        tImage[0].triangles[2][1] = 4;
+        tImage[0].triangles[2][2] = 5;
+
+        tImage[0].triangles[3][0] = 1;
+        tImage[0].triangles[3][1] = 2;
+        tImage[0].triangles[3][2] = 5;
+
+        tImage[0].triangles[4][0] = 2;
+        tImage[0].triangles[4][1] = 5;
+        tImage[0].triangles[4][2] = 6;
+
+        tImage[0].triangles[5][0] = 3;
+        tImage[0].triangles[5][1] = 4;
+        tImage[0].triangles[5][2] = 8;
+
+        tImage[0].triangles[6][0] = 4;
+        tImage[0].triangles[6][1] = 7;
+        tImage[0].triangles[6][2] = 8;
+
+        tImage[0].triangles[7][0] = 4;
+        tImage[0].triangles[7][1] = 5;
+        tImage[0].triangles[7][2] = 7;
+
+        tImage[0].triangles[8][0] = 7;
+        tImage[0].triangles[8][1] = 8;
+        tImage[0].triangles[8][2] = 9;
+
+        tImage[0].triangles[9][0] = 5;
+        tImage[0].triangles[9][1] = 7;
+        tImage[0].triangles[9][2] = 9;
+
+        tImage[0].triangles[10][0] = 5;
+        tImage[0].triangles[10][1] = 6;
+        tImage[0].triangles[10][2] = 9;
+
+        tImage[0].triangles[11][0] = 3;
+        tImage[0].triangles[11][1] = 8;
+        tImage[0].triangles[11][2] = 11;
+
+        tImage[0].triangles[12][0] = 8;
+        tImage[0].triangles[12][1] = 10;
+        tImage[0].triangles[12][2] = 11;
+
+        tImage[0].triangles[13][0] = 8;
+        tImage[0].triangles[13][1] = 9;
+        tImage[0].triangles[13][2] = 10;
+
+        tImage[0].triangles[14][0] = 9;
+        tImage[0].triangles[14][1] = 10;
+        tImage[0].triangles[14][2] = 13;
+
+        tImage[0].triangles[15][0] = 6;
+        tImage[0].triangles[15][1] = 9;
+        tImage[0].triangles[15][2] = 13;
+
+        tImage[0].triangles[16][0] = 10;
+        tImage[0].triangles[16][1] = 11;
+        tImage[0].triangles[16][2] = 12;
+
+        tImage[0].triangles[17][0] = 10;
+        tImage[0].triangles[17][1] = 12;
+        tImage[0].triangles[17][2] = 13;         
+        
+        
+        loadedImage = new javax.swing.ImageIcon( j + ".png").getImage();
+        Graphics2D g2dt1 = tImage[0].bi.createGraphics();
+        g2dt1.drawImage(loadedImage,0,0,null);
+        
+        int k=0;
         while (j<s){//quadrados
 
-            Rectangle2D.Double ret=new Rectangle2D.Double(0,0,50,50);
+            Rectangle2D.Double ret=new Rectangle2D.Double(0,0,1,1);
             
             AffineTransform TransIni = new AffineTransform();
             TransIni.translate(segList[j].getX(),segList[j].getY());
@@ -207,37 +292,36 @@ public class Circle extends Frame {
             TransFin.translate(segList[j].getX(),segList[j].getY());
             
             double[] initialMatrix = new double[6];
-            Shape retIni = TransIni.createTransformedShape(ret);
             TransIni.getMatrix(initialMatrix);
             
             double[] finalMatrix = new double[6];
-            Shape retFin = TransFin.createTransformedShape(ret);
             TransFin.getMatrix(finalMatrix);
             
             AffineTransform TransMeio;
+            
+            
+
+            tImage[k].triangles = tImage[0].triangles;
+            
+            loadedImage = new javax.swing.ImageIcon( j + ".png").getImage();
+            Graphics2D g2dt1 = tImage[0].bi.createGraphics();
+            g2dt1.drawImage(loadedImage,0,0,null);
+            //pontos t1
+            
+            t2.bi = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+            loadedImage = new javax.swing.ImageIcon( j+1 + ".png").getImage();
+            Graphics2D g2dt2 = tImage[0].bi.createGraphics();
+            g2dt2.drawImage(loadedImage,0,0,null);
+            //pontos t2
+            
             for (a=0; a<=steps; a++){
                 TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,(double)a/stepsDB));
-                clearWindow(g2d);
-                
-                g2d.setPaint(Color.red);
-                g2d.draw(retIni);
-                g2d.setPaint(Color.green);
-                g2d.draw(retFin);
-                
-                g2d.setPaint(Color.black);
-                g2d.fill(TransMeio.createTransformedShape(ret));
-                sustain(100);                
+                mix = tImage[k].mixWith(tImage[k+1],a);
+                bid.g2dbi.drawImage(mix,(int) TransMeio.getTranslateX(),(int) TransMeio.getTranslateY(),null);
+                bid.repaint();
+                sustain(100);
             }
         }
-        
-        /*
-        j=0;
-        while (j<i-1){//caminho
-            Rectangle2D.Double r2d=new Rectangle2D.Double(list2[j].getX(),list2[j].getY(),1,1);
-            g2d.fill(r2d);
-            sustain(10);
-            j++;
-        }*/
     }
     public static void clearWindow(Graphics2D g){
         g.setPaint(Color.white);
@@ -251,13 +335,6 @@ public class Circle extends Frame {
         }
         return(result);
     }
-    /*public static AffineTransform scalingWRTXY(double x, double y, double xs, double ys){
-        AffineTransform at = new AffineTransform();
-        at.translate(x,y);
-        at.scale(xs,ys);
-        at.translate(-x,-y);
-        return(at);
-    }*/
     public void segDefinition(int s){
         int segTam,j,temp;
         segTam=i/s;
@@ -273,12 +350,6 @@ public class Circle extends Frame {
             temp+=segTam;
             
         }
-       /* j=0;
-        while(j<s){
-            System.out.println("x= "+segList[j].getX()+" y= "+segList[j].getY()+"\n");
-            j++;
-            
-        }*/
     }
     
     public static void sustain(long t)
