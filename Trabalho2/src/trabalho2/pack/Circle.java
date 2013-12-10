@@ -302,7 +302,7 @@ public class Circle extends Frame {
         
         while (j<s){//quadrados
 
-            Rectangle2D.Double ret=new Rectangle2D.Double(0,0,1,1);
+           // Rectangle2D.Double ret=new Rectangle2D.Double(0,0,1,1);
             
             AffineTransform TransIni = new AffineTransform();
             TransIni.translate(segList[j].getX(),segList[j].getY());
@@ -328,6 +328,7 @@ public class Circle extends Frame {
                 bid.repaint();
                 sustain(100);
             }
+            k++;
         }
     }
     public static void clearWindow(Graphics2D g){
