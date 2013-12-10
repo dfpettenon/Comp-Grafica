@@ -34,7 +34,7 @@ public class Circle extends Frame {
         segList = new Point[4000];
     }
     
-    public void paint(Graphics g){
+    public void processing(/*Graphics g*/){
         
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int R=0,steps=0;
@@ -61,7 +61,7 @@ public class Circle extends Frame {
         sustain(100);
         
         segDefinition(16);
-        drawPath(g,16,steps);
+        drawPath(/*g,*/16,steps);
         System.out.println("Aperte a tecla 'Enter' para encerrar o programa."); 
         try { 
              System.in.read();
@@ -180,10 +180,10 @@ public class Circle extends Frame {
             
     }
     
-    public void drawPath(Graphics g,int s,int steps){        
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int j=0, a, width=256, height=144;
+    public void drawPath(/*Graphics g,*/int s,int steps){        
+        //Graphics2D g2d = (Graphics2D) g;
+        //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        int j=0, a, width=1200, height=600;
         double stepsDB=steps;
         
         
@@ -272,10 +272,12 @@ public class Circle extends Frame {
         tImage[0].triangles[15][2] = 12;
          
         
-        loadedImage = new javax.swing.ImageIcon(  "0.png").getImage();
+        loadedImage = new javax.swing.ImageIcon(  "1.png").getImage();
         Graphics2D g2dtImage = tImage[0].bi.createGraphics();
+      //  g2dtImage.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2dtImage.drawImage(loadedImage,0,0,null);
         
+        j=2;
         int k=1;
         while (k<16){
             
@@ -286,10 +288,10 @@ public class Circle extends Frame {
 
             tImage[k].triangles = tImage[0].triangles;
             
-            loadedImage = new javax.swing.ImageIcon( k + ".png").getImage();
+            loadedImage = new javax.swing.ImageIcon( j + ".png").getImage();
             g2dtImage = tImage[k].bi.createGraphics();
             g2dtImage.drawImage(loadedImage,0,0,null);
-            
+            j++;
             k++;
         }
         

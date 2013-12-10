@@ -26,10 +26,10 @@ public class Trabalho2 extends Frame {
          
 
          Circle c = new Circle();
-         c.setTitle("Trabalho 2");
-         c.setSize(1200,600);
-         c.setVisible(true);
-         
+         //c.setTitle("Trabalho 2");
+         //c.setSize(1200,600);
+         //c.setVisible(true);
+         c.processing();
     }
     
 }
