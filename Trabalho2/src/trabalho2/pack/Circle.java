@@ -18,23 +18,24 @@ import java.util.logging.Logger;
 /**
  *
  * @author Daniel
+ * @author Alexandre
  */
-public class Circle extends Frame {
+public class Circle{
    
-     private Point[] list;
-      private Point[] list2;
-      private Point[] segList;
-     private int i;
+    private Point[] list;
+    private Point[] list2;
+    private Point[] segList;
+    private int i;
     private int n;
      
     public Circle(){
         
         list = new Point[2000];
         list2 = new Point[4000];
-        segList = new Point[4000];
+        segList = new Point[17];
     }
     
-    public void processing(/*Graphics g*/){
+    public void processing(){
         
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int R=0,steps=0;
@@ -61,7 +62,7 @@ public class Circle extends Frame {
         //sustain(100);
         
         segDefinition(16);
-        drawPath(/*g,*/16,steps);
+        drawPath(16,steps);
         System.out.println("Aperte a tecla 'Enter' para encerrar o programa."); 
         try { 
              System.in.read();
@@ -143,7 +144,7 @@ public class Circle extends Frame {
     
     public void infinitePath(int R){
             
-            int offsetX=400-R, offsetY=300;//600-R e 300
+            int offsetX=600-128-R, offsetY=350-72;//600-R e 300
             int temp,temp2,k,j=0,secQua=(i/4)+1,thirQua=(2*secQua)-1,fourQua=(3*secQua)-2;
                       
             //1º quadrante
@@ -183,7 +184,7 @@ public class Circle extends Frame {
     public void drawPath(/*Graphics g,*/int s,int steps){        
         //Graphics2D g2d = (Graphics2D) g;
         //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int j=0, a, width=1200, height=600;
+        int j=0, a, width=1200, height=700;
         double stepsDB=steps;
         
         
@@ -195,6 +196,7 @@ public class Circle extends Frame {
         Image loadedImage;
         BufferedImageDrawer bid = new BufferedImageDrawer(bi,width,height);
         BufferedImage mix;
+        
         
         TriangulatedImage[] tImage = new TriangulatedImage[16];        
         
@@ -412,7 +414,7 @@ public class Circle extends Frame {
         int k=0;
         while (j<s){//quadrados
 
-           // Rectangle2D.Double ret=new Rectangle2D.Double(0,0,1,1);
+           
             
             AffineTransform TransIni = new AffineTransform();
             TransIni.translate(segList[j].getX(),segList[j].getY());
@@ -446,11 +448,7 @@ public class Circle extends Frame {
             k++;
         }
     }
-    public static void clearWindow(Graphics2D g){
-        g.setPaint(Color.white);
-        g.fill(new Rectangle(0,0,1200,600));
-        g.setPaint(Color.black);
-    }
+   
     public static double[] convexCombination(double[] a, double[] b, double alpha){
         double[] result = new double[a.length];
         for (int i=0; i<result.length; i++){
@@ -468,7 +466,7 @@ public class Circle extends Frame {
             segList[j] = new Point();
             segList[j].setX(list2[temp].getX());
             segList[j].setY(list2[temp].getY());
-            //System.out.println(temp);
+            
             j++;
             temp+=segTam;
             
