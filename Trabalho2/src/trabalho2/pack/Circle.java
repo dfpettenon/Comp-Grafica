@@ -224,11 +224,11 @@ public class Circle extends Frame {
         pointList[2][3].setX(109);pointList[2][3].setY(89);
         pointList[2][4].setX(159);pointList[2][4].setY(103);
             //4.png
-        pointList[3][0].setX(65);pointList[3][0].setY(38);
-        pointList[3][1].setX(102);pointList[3][1].setY(35);
-        pointList[3][2].setX(74);pointList[3][2].setY(61);
-        pointList[3][3].setX(77);pointList[3][3].setY(80);
-        pointList[3][4].setX(99);pointList[3][4].setY(79);
+        pointList[3][0].setX(191);pointList[3][0].setY(38);
+        pointList[3][1].setX(154);pointList[3][1].setY(35);
+        pointList[3][2].setX(182);pointList[3][2].setY(61);
+        pointList[3][3].setX(179);pointList[3][3].setY(80);
+        pointList[3][4].setX(157);pointList[3][4].setY(79);
             //5.png
         pointList[4][0].setX(127);pointList[4][0].setY(50);
         pointList[4][1].setX(159);pointList[4][1].setY(66);
@@ -236,11 +236,11 @@ public class Circle extends Frame {
         pointList[4][3].setX(119);pointList[4][3].setY(98);
         pointList[4][4].setX(150);pointList[4][4].setY(107);
             //6.png
-        pointList[5][0].setX(87);pointList[5][0].setY(50);
-        pointList[5][1].setX(130);pointList[5][1].setY(40);
-        pointList[5][2].setX(98);pointList[5][2].setY(69);
-        pointList[5][3].setX(98);pointList[5][3].setY(103);
-        pointList[5][4].setX(129);pointList[5][4].setY(95);
+        pointList[5][0].setX(169);pointList[5][0].setY(50);
+        pointList[5][1].setX(126);pointList[5][1].setY(40);
+        pointList[5][2].setX(158);pointList[5][2].setY(69);
+        pointList[5][3].setX(158);pointList[5][3].setY(103);
+        pointList[5][4].setX(127);pointList[5][4].setY(95);
             //7.png
         pointList[6][0].setX(93);pointList[6][0].setY(33);
         pointList[6][1].setX(128);pointList[6][1].setY(39);
@@ -266,11 +266,11 @@ public class Circle extends Frame {
         pointList[9][3].setX(83);pointList[9][3].setY(108);
         pointList[9][4].setX(118);pointList[9][4].setY(104);
             //11.png
-        pointList[10][0].setX(88);pointList[10][0].setY(45);
-        pointList[10][1].setX(127);pointList[10][1].setY(30);
-        pointList[10][2].setX(98);pointList[10][2].setY(44);
-        pointList[10][3].setX(87);pointList[10][3].setY(91);
-        pointList[10][4].setX(169);pointList[10][4].setY(76);
+        pointList[10][0].setX(168);pointList[10][0].setY(45);
+        pointList[10][1].setX(129);pointList[10][1].setY(30);
+        pointList[10][2].setX(158);pointList[10][2].setY(44);
+        pointList[10][3].setX(169);pointList[10][3].setY(91);
+        pointList[10][4].setX(87);pointList[10][4].setY(76);
             //12.png
         pointList[11][0].setX(150);pointList[11][0].setY(59);
         pointList[11][1].setX(210);pointList[11][1].setY(56);
@@ -432,15 +432,16 @@ public class Circle extends Frame {
             for (a=0; a<=steps; a++){
                 TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,(double)a/stepsDB));
                 if(k<15){
-                    mix = tImage[k].mixWith(tImage[k+1],a/steps);
+                    mix = tImage[k].mixWith(tImage[k+1],(double) a/stepsDB);
                 }
                 else{
-                    mix = tImage[k].mixWith(tImage[0],a/steps);
+                    mix = tImage[k].mixWith(tImage[0],(double) a/stepsDB);
                 }
                 bid.g2dbi.drawImage(mix,(int) TransMeio.getTranslateX(),(int) TransMeio.getTranslateY(),null);
                 bid.repaint();
                 sustain(50);
             }
+            sustain(100);
             k++;
         }
     }
@@ -466,7 +467,7 @@ public class Circle extends Frame {
             segList[j] = new Point();
             segList[j].setX(list2[temp].getX());
             segList[j].setY(list2[temp].getY());
-            System.out.println(temp);
+            //System.out.println(temp);
             j++;
             temp+=segTam;
             
