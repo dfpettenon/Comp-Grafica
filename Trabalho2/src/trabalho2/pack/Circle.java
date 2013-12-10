@@ -205,81 +205,74 @@ public class Circle extends Frame {
         //Pontos aqui
         
         
-        tImage[0].triangles = new int[18][3];            
+        tImage[0].triangles = new int[16][3];            
        
         tImage[0].triangles[0][0] = 0;
-        tImage[0].triangles[0][1] = 3;
-        tImage[0].triangles[0][2] = 4;
+        tImage[0].triangles[0][1] = 1;
+        tImage[0].triangles[0][2] = 3;
 
-        tImage[0].triangles[1][0] = 0;
-        tImage[0].triangles[1][1] = 1;
+        tImage[0].triangles[1][0] = 1;
+        tImage[0].triangles[1][1] = 2;
         tImage[0].triangles[1][2] = 4;
 
-        tImage[0].triangles[2][0] = 1;
-        tImage[0].triangles[2][1] = 4;
+        tImage[0].triangles[2][0] = 0;
+        tImage[0].triangles[2][1] = 3;
         tImage[0].triangles[2][2] = 5;
 
-        tImage[0].triangles[3][0] = 1;
-        tImage[0].triangles[3][1] = 2;
-        tImage[0].triangles[3][2] = 5;
+        tImage[0].triangles[3][0] = 2;
+        tImage[0].triangles[3][1] = 4;
+        tImage[0].triangles[3][2] = 7;
 
-        tImage[0].triangles[4][0] = 2;
+        tImage[0].triangles[4][0] = 3;
         tImage[0].triangles[4][1] = 5;
         tImage[0].triangles[4][2] = 6;
 
-        tImage[0].triangles[5][0] = 3;
-        tImage[0].triangles[5][1] = 4;
-        tImage[0].triangles[5][2] = 8;
+        tImage[0].triangles[5][0] = 4;
+        tImage[0].triangles[5][1] = 6;
+        tImage[0].triangles[5][2] = 7;
 
-        tImage[0].triangles[6][0] = 4;
-        tImage[0].triangles[6][1] = 7;
-        tImage[0].triangles[6][2] = 8;
+        tImage[0].triangles[6][0] = 1;
+        tImage[0].triangles[6][1] = 3;
+        tImage[0].triangles[6][2] = 6;
 
-        tImage[0].triangles[7][0] = 4;
-        tImage[0].triangles[7][1] = 5;
-        tImage[0].triangles[7][2] = 7;
+        tImage[0].triangles[7][0] = 1;
+        tImage[0].triangles[7][1] = 4;
+        tImage[0].triangles[7][2] = 6;
 
-        tImage[0].triangles[8][0] = 7;
-        tImage[0].triangles[8][1] = 8;
-        tImage[0].triangles[8][2] = 9;
+        tImage[0].triangles[8][0] = 5;
+        tImage[0].triangles[8][1] = 6;
+        tImage[0].triangles[8][2] = 8;
 
-        tImage[0].triangles[9][0] = 5;
+        tImage[0].triangles[9][0] = 6;
         tImage[0].triangles[9][1] = 7;
         tImage[0].triangles[9][2] = 9;
 
-        tImage[0].triangles[10][0] = 5;
-        tImage[0].triangles[10][1] = 6;
-        tImage[0].triangles[10][2] = 9;
+        tImage[0].triangles[10][0] = 6;
+        tImage[0].triangles[10][1] = 8;
+        tImage[0].triangles[10][2] = 11;
 
-        tImage[0].triangles[11][0] = 3;
-        tImage[0].triangles[11][1] = 8;
+        tImage[0].triangles[11][0] = 6;
+        tImage[0].triangles[11][1] = 9;
         tImage[0].triangles[11][2] = 11;
 
-        tImage[0].triangles[12][0] = 8;
-        tImage[0].triangles[12][1] = 10;
-        tImage[0].triangles[12][2] = 11;
+        tImage[0].triangles[12][0] = 5;
+        tImage[0].triangles[12][1] = 8;
+        tImage[0].triangles[12][2] = 10;
 
-        tImage[0].triangles[13][0] = 8;
+        tImage[0].triangles[13][0] = 7;
         tImage[0].triangles[13][1] = 9;
-        tImage[0].triangles[13][2] = 10;
+        tImage[0].triangles[13][2] = 12;
 
-        tImage[0].triangles[14][0] = 9;
+        tImage[0].triangles[14][0] = 8;
         tImage[0].triangles[14][1] = 10;
-        tImage[0].triangles[14][2] = 13;
+        tImage[0].triangles[14][2] = 11;
 
-        tImage[0].triangles[15][0] = 6;
-        tImage[0].triangles[15][1] = 9;
-        tImage[0].triangles[15][2] = 13;
-
-        tImage[0].triangles[16][0] = 10;
-        tImage[0].triangles[16][1] = 11;
-        tImage[0].triangles[16][2] = 12;
-
-        tImage[0].triangles[17][0] = 10;
-        tImage[0].triangles[17][1] = 12;
-        tImage[0].triangles[17][2] = 13;         
+        tImage[0].triangles[15][0] = 9;
+        tImage[0].triangles[15][1] = 11;
+        tImage[0].triangles[15][2] = 12;
+         
         
-        loadedImage = new javax.swing.ImageIcon( j + ".png").getImage();
+        loadedImage = new javax.swing.ImageIcon(  "0.png").getImage();
         Graphics2D g2dtImage = tImage[0].bi.createGraphics();
         g2dtImage.drawImage(loadedImage,0,0,null);
         
@@ -288,12 +281,12 @@ public class Circle extends Frame {
             
             //Pontos aqui
             
-            tImage[0] = new TriangulatedImage();
-            tImage[0].bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            tImage[k] = new TriangulatedImage();
+            tImage[k].bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
             tImage[k].triangles = tImage[0].triangles;
             
-            loadedImage = new javax.swing.ImageIcon( j + ".png").getImage();
+            loadedImage = new javax.swing.ImageIcon( k + ".png").getImage();
             g2dtImage = tImage[k].bi.createGraphics();
             g2dtImage.drawImage(loadedImage,0,0,null);
             
@@ -325,7 +318,7 @@ public class Circle extends Frame {
             
             AffineTransform TransMeio;
             
-  
+            k=0;
             for (a=0; a<=steps; a++){
                 TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,(double)a/stepsDB));
                 mix = tImage[k].mixWith(tImage[k+1],a);
