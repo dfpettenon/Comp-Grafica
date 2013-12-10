@@ -316,7 +316,7 @@ public class Circle extends Frame {
             Graphics2D g2dtImage = tImage[j].bi.createGraphics();
             
             //Load the image and draw it on the corresponding BufferedImage.
-            loadedImage = new javax.swing.ImageIcon(j+1 + "1.png").getImage();
+            loadedImage = new javax.swing.ImageIcon(j+1 + ".png").getImage();
             //g2dtImage.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2dtImage.drawImage(loadedImage,0,0,null);
             
@@ -326,11 +326,11 @@ public class Circle extends Frame {
             tImage[j].tPoints[0]= new Point2D.Double(0,0);//canto esquerda cima
             tImage[j].tPoints[1]= new Point2D.Double(127,0);//cima
             tImage[j].tPoints[2]= new Point2D.Double(255,0);//canto direita cima
-            tImage[j].tPoints[3]= new Point2D.Double(0,72);//esquerda
-            tImage[j].tPoints[4]= new Point2D.Double(pointList[j][0].getX(),pointList[j][0].getY());//olho esq
-            tImage[j].tPoints[5]= new Point2D.Double(pointList[j][1].getX(),pointList[j][1].getY());//olho dir
-            tImage[j].tPoints[6]= new Point2D.Double(255,72);//direita
-            tImage[j].tPoints[7]= new Point2D.Double(pointList[j][2].getX(),pointList[j][2].getY());//nariz
+            tImage[j].tPoints[3]= new Point2D.Double(pointList[j][0].getX(),pointList[j][0].getY());//olho esq
+            tImage[j].tPoints[4]= new Point2D.Double(pointList[j][1].getX(),pointList[j][1].getY());//olho dir
+            tImage[j].tPoints[5]= new Point2D.Double(0,72);//esquerda
+            tImage[j].tPoints[6]= new Point2D.Double(pointList[j][2].getX(),pointList[j][2].getY());//nariz
+            tImage[j].tPoints[7]= new Point2D.Double(255,72);//direita
             tImage[j].tPoints[8]= new Point2D.Double(pointList[j][3].getX(),pointList[j][3].getY());//canto esq boca
             tImage[j].tPoints[9]= new Point2D.Double(pointList[j][4].getX(),pointList[j][4].getY());//canto dir boca
             tImage[j].tPoints[10]= new Point2D.Double(0,143);//canto esquerda baixo
