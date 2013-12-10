@@ -440,6 +440,7 @@ public class Circle extends Frame {
                 bid.g2dbi.drawImage(mix,(int) TransMeio.getTranslateX(),(int) TransMeio.getTranslateY(),null);
                 bid.repaint();
                 sustain(50);
+                bid.g2dbi.clearRect((int)TransMeio.getTranslateX(), (int)TransMeio.getTranslateY(), width, height);
             }
             sustain(100);
             k++;
