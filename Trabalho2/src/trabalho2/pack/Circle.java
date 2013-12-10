@@ -183,7 +183,7 @@ public class Circle extends Frame {
     public void drawPath(/*Graphics g,*/int s,int steps){        
         //Graphics2D g2d = (Graphics2D) g;
         //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int j=0, a, width=1200, height=600;
+        int j=0, a, width=1200, height=600, offset=0;
         double stepsDB=steps;
         
         
@@ -200,6 +200,124 @@ public class Circle extends Frame {
         tImage[0] = new TriangulatedImage();
         tImage[0].bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
+        Point[][] pointList= new Point[16][5];
+        for(a=0;a<=15;a++){
+            for(j=0;j<=3;j++){
+               pointList[a][j]= new Point(); 
+            }
+        }
+            //1.png
+        pointList[0][0].setX(131);pointList[0][0].setY(58);
+        pointList[0][1].setX(157);pointList[0][1].setY(67);
+        pointList[0][2].setX(150);pointList[0][2].setY(77);
+        pointList[0][3].setX(128);pointList[0][3].setY(94);
+        pointList[0][4].setX(153);pointList[0][4].setY(98);
+            //2.png
+        pointList[1][0].setX(137);pointList[1][0].setY(50);
+        pointList[1][1].setX(169);pointList[1][1].setY(46);
+        pointList[1][2].setX(159);pointList[1][2].setY(68);
+        pointList[1][3].setX(144);pointList[1][3].setY(80);
+        pointList[1][4].setX(169);pointList[1][4].setY(80);
+            //3.png
+        pointList[2][0].setX(113);pointList[2][0].setY(51);
+        pointList[2][1].setX(162);pointList[2][1].setY(61);
+        pointList[2][2].setX(144);pointList[2][2].setY(67);
+        pointList[2][3].setX(109);pointList[2][3].setY(89);
+        pointList[2][4].setX(159);pointList[2][4].setY(103);
+            //4.png
+        pointList[3][0].setX(65);pointList[3][0].setY(38);
+        pointList[3][1].setX(102);pointList[3][1].setY(35);
+        pointList[3][2].setX(74);pointList[3][2].setY(61);
+        pointList[3][3].setX(77);pointList[3][3].setY(80);
+        pointList[3][4].setX(99);pointList[3][4].setY(79);
+            //5.png
+        pointList[4][0].setX(127);pointList[4][0].setY(50);
+        pointList[4][1].setX(159);pointList[4][1].setY(66);
+        pointList[4][2].setX(152);pointList[4][2].setY(78);
+        pointList[4][3].setX(119);pointList[4][3].setY(98);
+        pointList[4][4].setX(150);pointList[4][4].setY(107);
+            //6.png
+        pointList[5][0].setX(87);pointList[5][0].setY(50);
+        pointList[5][1].setX(130);pointList[5][1].setY(40);
+        pointList[5][2].setX(98);pointList[5][2].setY(69);
+        pointList[5][3].setX(98);pointList[5][3].setY(103);
+        pointList[5][4].setX(129);pointList[5][4].setY(95);
+            //7.png
+        pointList[6][0].setX(93);pointList[6][0].setY(33);
+        pointList[6][1].setX(128);pointList[6][1].setY(39);
+        pointList[6][2].setX(122);pointList[6][2].setY(51);
+        pointList[6][3].setX(95);pointList[6][3].setY(70);
+        pointList[6][4].setX(132);pointList[6][4].setY(73);
+            //8.png
+        pointList[7][0].setX(78);pointList[7][0].setY(49);
+        pointList[7][1].setX(126);pointList[7][1].setY(36);
+        pointList[7][2].setX(119);pointList[7][2].setY(76);
+        pointList[7][3].setX(97);pointList[7][3].setY(97);
+        pointList[7][4].setX(129);pointList[7][4].setY(89);
+            //9.png
+        pointList[8][0].setX(142);pointList[8][0].setY(53);
+        pointList[8][1].setX(189);pointList[8][1].setY(61);
+        pointList[8][2].setX(171);pointList[8][2].setY(84);
+        pointList[8][3].setX(131);pointList[8][3].setY(100);
+        pointList[8][4].setX(180);pointList[8][4].setY(106);
+            //10.png
+        pointList[9][0].setX(78);pointList[9][0].setY(59);
+        pointList[9][1].setX(121);pointList[9][1].setY(59);
+        pointList[9][2].setX(105);pointList[9][2].setY(89);
+        pointList[9][3].setX(83);pointList[9][3].setY(108);
+        pointList[9][4].setX(118);pointList[9][4].setY(104);
+            //11.png
+        pointList[10][0].setX(88);pointList[10][0].setY(45);
+        pointList[10][1].setX(127);pointList[10][1].setY(30);
+        pointList[10][2].setX(98);pointList[10][2].setY(44);
+        pointList[10][3].setX(87);pointList[10][3].setY(91);
+        pointList[10][4].setX(169);pointList[10][4].setY(76);
+            //12.png
+        pointList[11][0].setX(150);pointList[11][0].setY(59);
+        pointList[11][1].setX(210);pointList[11][1].setY(56);
+        pointList[11][2].setX(196);pointList[11][2].setY(77);
+        pointList[11][3].setX(149);pointList[11][3].setY(103);
+        pointList[11][4].setX(202);pointList[11][4].setY(99);
+            //13.png
+        pointList[12][0].setX(85);pointList[12][0].setY(47);
+        pointList[12][1].setX(156);pointList[12][1].setY(45);
+        pointList[12][2].setX(123);pointList[12][2].setY(72);
+        pointList[12][3].setX(73);pointList[12][3].setY(95);
+        pointList[12][4].setX(164);pointList[12][4].setY(82);
+            //14.png
+        pointList[13][0].setX(96);pointList[13][0].setY(33);
+        pointList[13][1].setX(147);pointList[13][1].setY(45);
+        pointList[13][2].setX(130);pointList[13][2].setY(69);
+        pointList[13][3].setX(99);pointList[13][3].setY(93);
+        pointList[13][4].setX(135);pointList[13][4].setY(102);
+            //15.png
+        pointList[14][0].setX(85);pointList[14][0].setY(44);
+        pointList[14][1].setX(144);pointList[14][1].setY(42);
+        pointList[14][2].setX(118);pointList[14][2].setY(57);
+        pointList[14][3].setX(83);pointList[14][3].setY(78);
+        pointList[14][4].setX(78);pointList[14][4].setY(76);
+            //16.png
+        pointList[15][0].setX(121);pointList[15][0].setY(52);
+        pointList[15][1].setX(162);pointList[15][1].setY(60);
+        pointList[15][2].setX(150);pointList[15][2].setY(80);
+        pointList[15][3].setX(122);pointList[15][3].setY(94);
+        pointList[15][4].setX(153);pointList[15][4].setY(100);
+        
+        for(j=0;j<=15;j++){
+            tImage.tPoints[j][0]= new Point2D.Double(0,0);//canto esquerda cima
+            tImage.tPoints[j][1]= new Point2D.Double(127,0);//cima
+            tImage.tPoints[j][2]= new Point2D.Double(255,0);//canto direita cima
+            tImage.tPoints[j][3]= new Point2D.Double(0,72);//esquerda
+            tImage.tPoints[j][4]= new Point2D.Double(pointList[j][0].getX(),pointList[j][0].getY());//olho esq
+            tImage.tPoints[j][5]= new Point2D.Double(pointList[j][1].getX(),pointList[j][1].getY());//olho dir
+            tImage.tPoints[j][6]= new Point2D.Double(255,72);//direita
+            tImage.tPoints[j][7]= new Point2D.Double(pointList[j][2].getX(),pointList[j][2].getY());//nariz
+            tImage.tPoints[j][8]= new Point2D.Double(pointList[j][3].getX(),pointList[j][3].getY());//canto esq boca
+            tImage.tPoints[j][9]= new Point2D.Double(pointList[j][4].getX(),pointList[j][4].getY());//canto dir boca
+            tImage.tPoints[j][10]= new Point2D.Double(0,143);//canto esquerda baixo
+            tImage.tPoints[j][11]= new Point2D.Double(127,143);//baixo
+            tImage.tPoints[j][12]= new Point2D.Double(255,143);//canto direita baixo
+        }
         
         
         //Pontos aqui
