@@ -197,12 +197,10 @@ public class Circle extends Frame {
         BufferedImage mix;        
         
         TriangulatedImage[] tImage = new TriangulatedImage[16];        
-        tImage[0] = new TriangulatedImage();
-        tImage[0].bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
+        
         Point[][] pointList= new Point[16][5];
         for(a=0;a<=15;a++){
-            for(j=0;j<=3;j++){
+            for(j=0;j<=4;j++){
                pointList[a][j]= new Point(); 
             }
         }
@@ -303,121 +301,118 @@ public class Circle extends Frame {
         pointList[15][3].setX(122);pointList[15][3].setY(94);
         pointList[15][4].setX(153);pointList[15][4].setY(100);
         
+        
+        
+        // Pontos dos triângulos de cada imagem
         for(j=0;j<=15;j++){
-            tImage.tPoints[j][0]= new Point2D.Double(0,0);//canto esquerda cima
-            tImage.tPoints[j][1]= new Point2D.Double(127,0);//cima
-            tImage.tPoints[j][2]= new Point2D.Double(255,0);//canto direita cima
-            tImage.tPoints[j][3]= new Point2D.Double(0,72);//esquerda
-            tImage.tPoints[j][4]= new Point2D.Double(pointList[j][0].getX(),pointList[j][0].getY());//olho esq
-            tImage.tPoints[j][5]= new Point2D.Double(pointList[j][1].getX(),pointList[j][1].getY());//olho dir
-            tImage.tPoints[j][6]= new Point2D.Double(255,72);//direita
-            tImage.tPoints[j][7]= new Point2D.Double(pointList[j][2].getX(),pointList[j][2].getY());//nariz
-            tImage.tPoints[j][8]= new Point2D.Double(pointList[j][3].getX(),pointList[j][3].getY());//canto esq boca
-            tImage.tPoints[j][9]= new Point2D.Double(pointList[j][4].getX(),pointList[j][4].getY());//canto dir boca
-            tImage.tPoints[j][10]= new Point2D.Double(0,143);//canto esquerda baixo
-            tImage.tPoints[j][11]= new Point2D.Double(127,143);//baixo
-            tImage.tPoints[j][12]= new Point2D.Double(255,143);//canto direita baixo
-        }
-        
-        
-        //Pontos aqui
-        
-        
-        tImage[0].triangles = new int[16][3];            
-       
-        tImage[0].triangles[0][0] = 0;
-        tImage[0].triangles[0][1] = 1;
-        tImage[0].triangles[0][2] = 3;
-
-        tImage[0].triangles[1][0] = 1;
-        tImage[0].triangles[1][1] = 2;
-        tImage[0].triangles[1][2] = 4;
-
-        tImage[0].triangles[2][0] = 0;
-        tImage[0].triangles[2][1] = 3;
-        tImage[0].triangles[2][2] = 5;
-
-        tImage[0].triangles[3][0] = 2;
-        tImage[0].triangles[3][1] = 4;
-        tImage[0].triangles[3][2] = 7;
-
-        tImage[0].triangles[4][0] = 3;
-        tImage[0].triangles[4][1] = 5;
-        tImage[0].triangles[4][2] = 6;
-
-        tImage[0].triangles[5][0] = 4;
-        tImage[0].triangles[5][1] = 6;
-        tImage[0].triangles[5][2] = 7;
-
-        tImage[0].triangles[6][0] = 1;
-        tImage[0].triangles[6][1] = 3;
-        tImage[0].triangles[6][2] = 6;
-
-        tImage[0].triangles[7][0] = 1;
-        tImage[0].triangles[7][1] = 4;
-        tImage[0].triangles[7][2] = 6;
-
-        tImage[0].triangles[8][0] = 5;
-        tImage[0].triangles[8][1] = 6;
-        tImage[0].triangles[8][2] = 8;
-
-        tImage[0].triangles[9][0] = 6;
-        tImage[0].triangles[9][1] = 7;
-        tImage[0].triangles[9][2] = 9;
-
-        tImage[0].triangles[10][0] = 6;
-        tImage[0].triangles[10][1] = 8;
-        tImage[0].triangles[10][2] = 11;
-
-        tImage[0].triangles[11][0] = 6;
-        tImage[0].triangles[11][1] = 9;
-        tImage[0].triangles[11][2] = 11;
-
-        tImage[0].triangles[12][0] = 5;
-        tImage[0].triangles[12][1] = 8;
-        tImage[0].triangles[12][2] = 10;
-
-        tImage[0].triangles[13][0] = 7;
-        tImage[0].triangles[13][1] = 9;
-        tImage[0].triangles[13][2] = 12;
-
-        tImage[0].triangles[14][0] = 8;
-        tImage[0].triangles[14][1] = 10;
-        tImage[0].triangles[14][2] = 11;
-
-        tImage[0].triangles[15][0] = 9;
-        tImage[0].triangles[15][1] = 11;
-        tImage[0].triangles[15][2] = 12;
-         
-        
-        loadedImage = new javax.swing.ImageIcon(  "1.png").getImage();
-        Graphics2D g2dtImage = tImage[0].bi.createGraphics();
-      //  g2dtImage.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2dtImage.drawImage(loadedImage,0,0,null);
-        
-        j=2;
-        int k=1;
-        while (k<16){
             
-            //Pontos aqui
+            //Generating the triangulated image:
+            tImage[j] = new TriangulatedImage();
+            //Define the size.
+            tImage[j].bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
             
-            tImage[k] = new TriangulatedImage();
-            tImage[k].bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
-            tImage[k].triangles = tImage[0].triangles;
+           
+            //Generate the Graphics2D object.
+            Graphics2D g2dtImage = tImage[j].bi.createGraphics();
             
-            loadedImage = new javax.swing.ImageIcon( j + ".png").getImage();
-            g2dtImage = tImage[k].bi.createGraphics();
+            //Load the image and draw it on the corresponding BufferedImage.
+            loadedImage = new javax.swing.ImageIcon(j+1 + "1.png").getImage();
+            //g2dtImage.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2dtImage.drawImage(loadedImage,0,0,null);
-            j++;
-            k++;
+            
+            
+            //Definition of the points for the triangulation.
+            tImage[j].tPoints = new Point2D[13];
+            tImage[j].tPoints[0]= new Point2D.Double(0,0);//canto esquerda cima
+            tImage[j].tPoints[1]= new Point2D.Double(127,0);//cima
+            tImage[j].tPoints[2]= new Point2D.Double(255,0);//canto direita cima
+            tImage[j].tPoints[3]= new Point2D.Double(0,72);//esquerda
+            tImage[j].tPoints[4]= new Point2D.Double(pointList[j][0].getX(),pointList[j][0].getY());//olho esq
+            tImage[j].tPoints[5]= new Point2D.Double(pointList[j][1].getX(),pointList[j][1].getY());//olho dir
+            tImage[j].tPoints[6]= new Point2D.Double(255,72);//direita
+            tImage[j].tPoints[7]= new Point2D.Double(pointList[j][2].getX(),pointList[j][2].getY());//nariz
+            tImage[j].tPoints[8]= new Point2D.Double(pointList[j][3].getX(),pointList[j][3].getY());//canto esq boca
+            tImage[j].tPoints[9]= new Point2D.Double(pointList[j][4].getX(),pointList[j][4].getY());//canto dir boca
+            tImage[j].tPoints[10]= new Point2D.Double(0,143);//canto esquerda baixo
+            tImage[j].tPoints[11]= new Point2D.Double(127,143);//baixo
+            tImage[j].tPoints[12]= new Point2D.Double(255,143);//canto direita baixo
+            
+            if (j==0){
+                
+                //Definition of the triangles.
+                tImage[0].triangles = new int[16][3];
+                
+                tImage[0].triangles[0][0] = 0;
+                tImage[0].triangles[0][1] = 1;
+                tImage[0].triangles[0][2] = 3;
+
+                tImage[0].triangles[1][0] = 1;
+                tImage[0].triangles[1][1] = 2;
+                tImage[0].triangles[1][2] = 4;
+
+                tImage[0].triangles[2][0] = 0;
+                tImage[0].triangles[2][1] = 3;
+                tImage[0].triangles[2][2] = 5;
+
+                tImage[0].triangles[3][0] = 2;
+                tImage[0].triangles[3][1] = 4;
+                tImage[0].triangles[3][2] = 7;
+
+                tImage[0].triangles[4][0] = 3;
+                tImage[0].triangles[4][1] = 5;
+                tImage[0].triangles[4][2] = 6;
+
+                tImage[0].triangles[5][0] = 4;
+                tImage[0].triangles[5][1] = 6;
+                tImage[0].triangles[5][2] = 7;
+
+                tImage[0].triangles[6][0] = 1;
+                tImage[0].triangles[6][1] = 3;
+                tImage[0].triangles[6][2] = 6;
+
+                tImage[0].triangles[7][0] = 1;
+                tImage[0].triangles[7][1] = 4;
+                tImage[0].triangles[7][2] = 6;
+
+                tImage[0].triangles[8][0] = 5;
+                tImage[0].triangles[8][1] = 6;
+                tImage[0].triangles[8][2] = 8;
+
+                tImage[0].triangles[9][0] = 6;
+                tImage[0].triangles[9][1] = 7;
+                tImage[0].triangles[9][2] = 9;
+
+                tImage[0].triangles[10][0] = 6;
+                tImage[0].triangles[10][1] = 8;
+                tImage[0].triangles[10][2] = 11;
+
+                tImage[0].triangles[11][0] = 6;
+                tImage[0].triangles[11][1] = 9;
+                tImage[0].triangles[11][2] = 11;
+
+                tImage[0].triangles[12][0] = 5;
+                tImage[0].triangles[12][1] = 8;
+                tImage[0].triangles[12][2] = 10;
+
+                tImage[0].triangles[13][0] = 7;
+                tImage[0].triangles[13][1] = 9;
+                tImage[0].triangles[13][2] = 12;
+
+                tImage[0].triangles[14][0] = 8;
+                tImage[0].triangles[14][1] = 10;
+                tImage[0].triangles[14][2] = 11;
+
+                tImage[0].triangles[15][0] = 9;
+                tImage[0].triangles[15][1] = 11;
+                tImage[0].triangles[15][2] = 12;
+            
+            }
+            else{
+                //The same for all images.
+                tImage[j].triangles = tImage[0].triangles;
+            }
         }
-        
-        
-        
-        
-        
-        
+        j=0;
         while (j<s){//quadrados
 
            // Rectangle2D.Double ret=new Rectangle2D.Double(0,0,1,1);
@@ -438,7 +433,7 @@ public class Circle extends Frame {
             
             AffineTransform TransMeio;
             
-            k=0;
+            int k=0;
             for (a=0; a<=steps; a++){
                 TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,(double)a/stepsDB));
                 mix = tImage[k].mixWith(tImage[k+1],a);
