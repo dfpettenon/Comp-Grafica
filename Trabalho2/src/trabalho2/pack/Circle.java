@@ -194,7 +194,7 @@ public class Circle extends Frame {
         BufferedImage bi = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
         Image loadedImage;
         BufferedImageDrawer bid = new BufferedImageDrawer(bi,width,height);
-        BufferedImage mix;        
+        BufferedImage mix;
         
         TriangulatedImage[] tImage = new TriangulatedImage[16];        
         
@@ -204,6 +204,7 @@ public class Circle extends Frame {
                pointList[a][j]= new Point(); 
             }
         }
+        // Pontos dos triângulos de cada imagem
             //1.png
         pointList[0][0].setX(131);pointList[0][0].setY(58);
         pointList[0][1].setX(157);pointList[0][1].setY(67);
@@ -301,17 +302,13 @@ public class Circle extends Frame {
         pointList[15][3].setX(122);pointList[15][3].setY(94);
         pointList[15][4].setX(153);pointList[15][4].setY(100);
         
-        
-        
-        // Pontos dos triângulos de cada imagem
         for(j=0;j<=15;j++){
             
             //Generating the triangulated image:
             tImage[j] = new TriangulatedImage();
             //Define the size.
-            tImage[j].bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            tImage[j].bi = new BufferedImage(256, 144, BufferedImage.TYPE_INT_RGB);
             
-           
             //Generate the Graphics2D object.
             Graphics2D g2dtImage = tImage[j].bi.createGraphics();
             
@@ -319,7 +316,6 @@ public class Circle extends Frame {
             loadedImage = new javax.swing.ImageIcon(j+1 + ".png").getImage();
             //g2dtImage.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2dtImage.drawImage(loadedImage,0,0,null);
-            
             
             //Definition of the points for the triangulation.
             tImage[j].tPoints = new Point2D[13];
@@ -435,10 +431,15 @@ public class Circle extends Frame {
             AffineTransform TransMeio;
             for (a=0; a<=steps; a++){
                 TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,(double)a/stepsDB));
-                mix = tImage[k].mixWith(tImage[k+1],a/steps);
+                if(k<15){
+                    mix = tImage[k].mixWith(tImage[k+1],a/steps);
+                }
+                else{
+                    mix = tImage[k].mixWith(tImage[0],a/steps);
+                }
                 bid.g2dbi.drawImage(mix,(int) TransMeio.getTranslateX(),(int) TransMeio.getTranslateY(),null);
                 bid.repaint();
-                //sustain(100);
+                sustain(50);
             }
             k++;
         }
