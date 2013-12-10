@@ -143,7 +143,7 @@ public class Circle extends Frame {
     
     public void infinitePath(int R){
             
-            int offsetX=600-R, offsetY=300;//600-R e 300
+            int offsetX=400-R, offsetY=300;//600-R e 300
             int temp,temp2,k,j=0,secQua=(i/4)+1,thirQua=(2*secQua)-1,fourQua=(3*secQua)-2;
                       
             //1º quadrante
