@@ -413,6 +413,7 @@ public class Circle extends Frame {
             }
         }
         j=0;
+        int k=0;
         while (j<s){//quadrados
 
            // Rectangle2D.Double ret=new Rectangle2D.Double(0,0,1,1);
@@ -432,7 +433,6 @@ public class Circle extends Frame {
             TransFin.getMatrix(finalMatrix);
             
             AffineTransform TransMeio;
-            int k=0;
             for (a=0; a<=steps; a++){
                 TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,(double)a/stepsDB));
                 mix = tImage[k].mixWith(tImage[k+1],a/steps);
