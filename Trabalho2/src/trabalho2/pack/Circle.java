@@ -58,7 +58,7 @@ public class Circle extends Frame {
         } catch (IOException ex) {
              Logger.getLogger(Circle.class.getName()).log(Level.SEVERE, null, ex);
         }
-        sustain(100);
+        //sustain(100);
         
         segDefinition(16);
         drawPath(/*g,*/16,steps);
@@ -183,7 +183,7 @@ public class Circle extends Frame {
     public void drawPath(/*Graphics g,*/int s,int steps){        
         //Graphics2D g2d = (Graphics2D) g;
         //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int j=0, a, width=1200, height=600, offset=0;
+        int j=0, a, width=1200, height=600;
         double stepsDB=steps;
         
         
@@ -432,14 +432,13 @@ public class Circle extends Frame {
             TransFin.getMatrix(finalMatrix);
             
             AffineTransform TransMeio;
-            
             int k=0;
             for (a=0; a<=steps; a++){
                 TransMeio = new AffineTransform(convexCombination(initialMatrix,finalMatrix,(double)a/stepsDB));
-                mix = tImage[k].mixWith(tImage[k+1],a);
+                mix = tImage[k].mixWith(tImage[k+1],a/steps);
                 bid.g2dbi.drawImage(mix,(int) TransMeio.getTranslateX(),(int) TransMeio.getTranslateY(),null);
                 bid.repaint();
-                sustain(100);
+                //sustain(100);
             }
             k++;
         }
