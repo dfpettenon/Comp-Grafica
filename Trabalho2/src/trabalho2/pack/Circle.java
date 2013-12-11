@@ -226,11 +226,11 @@ public class Circle{
         pointList[2][3].setX(109);pointList[2][3].setY(89);
         pointList[2][4].setX(159);pointList[2][4].setY(103);
             //4.png
-        pointList[3][0].setX(191);pointList[3][0].setY(38);
-        pointList[3][1].setX(154);pointList[3][1].setY(35);
-        pointList[3][2].setX(182);pointList[3][2].setY(61);
-        pointList[3][3].setX(179);pointList[3][3].setY(80);
-        pointList[3][4].setX(157);pointList[3][4].setY(79);
+        pointList[3][0].setX(152);pointList[3][0].setY(35);
+        pointList[3][1].setX(191);pointList[3][1].setY(38);
+        pointList[3][2].setX(177);pointList[3][2].setY(61);
+        pointList[3][3].setX(152);pointList[3][3].setY(79);
+        pointList[3][4].setX(178);pointList[3][4].setY(80);
             //5.png
         pointList[4][0].setX(127);pointList[4][0].setY(50);
         pointList[4][1].setX(159);pointList[4][1].setY(66);
@@ -238,11 +238,11 @@ public class Circle{
         pointList[4][3].setX(119);pointList[4][3].setY(98);
         pointList[4][4].setX(150);pointList[4][4].setY(107);
             //6.png
-        pointList[5][0].setX(169);pointList[5][0].setY(50);
-        pointList[5][1].setX(126);pointList[5][1].setY(40);
+        pointList[5][0].setX(126);pointList[5][0].setY(40);
+        pointList[5][1].setX(169);pointList[5][1].setY(50);
         pointList[5][2].setX(158);pointList[5][2].setY(69);
-        pointList[5][3].setX(158);pointList[5][3].setY(103);
-        pointList[5][4].setX(127);pointList[5][4].setY(95);
+        pointList[5][3].setX(127);pointList[5][3].setY(95);
+        pointList[5][4].setX(158);pointList[5][4].setY(103);
             //7.png
         pointList[6][0].setX(93);pointList[6][0].setY(33);
         pointList[6][1].setX(128);pointList[6][1].setY(39);
@@ -268,11 +268,11 @@ public class Circle{
         pointList[9][3].setX(83);pointList[9][3].setY(108);
         pointList[9][4].setX(118);pointList[9][4].setY(104);
             //11.png
-        pointList[10][0].setX(168);pointList[10][0].setY(45);
-        pointList[10][1].setX(129);pointList[10][1].setY(30);
+        pointList[10][0].setX(129);pointList[10][0].setY(30);
+        pointList[10][1].setX(168);pointList[10][1].setY(45);
         pointList[10][2].setX(158);pointList[10][2].setY(44);
-        pointList[10][3].setX(169);pointList[10][3].setY(91);
-        pointList[10][4].setX(87);pointList[10][4].setY(76);
+        pointList[10][3].setX(87);pointList[10][3].setY(76);
+        pointList[10][4].setX(169);pointList[10][4].setY(91);
             //12.png
         pointList[11][0].setX(150);pointList[11][0].setY(59);
         pointList[11][1].setX(210);pointList[11][1].setY(56);
@@ -295,8 +295,8 @@ public class Circle{
         pointList[14][0].setX(85);pointList[14][0].setY(44);
         pointList[14][1].setX(144);pointList[14][1].setY(42);
         pointList[14][2].setX(118);pointList[14][2].setY(57);
-        pointList[14][3].setX(83);pointList[14][3].setY(78);
-        pointList[14][4].setX(78);pointList[14][4].setY(76);
+        pointList[14][3].setX(78);pointList[14][3].setY(80);
+        pointList[14][4].setX(150);pointList[14][4].setY(78);
             //16.png
         pointList[15][0].setX(121);pointList[15][0].setY(52);
         pointList[15][1].setX(162);pointList[15][1].setY(60);
