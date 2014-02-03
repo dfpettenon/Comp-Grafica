@@ -139,7 +139,7 @@ public class Trabalho3 extends JFrame
     tgVei.addChild(s.getSceneGroup());  
     
     //Light no. 2: a point light.
-    Color3f lightColour2 = new Color3f(1.0f, 1.0f, 1.0f);
+    Color3f lightColour2 = new Color3f(0.2f, 0.2f, 1.0f);
     PointLight light2 = new PointLight(lightColour2,
                                        new Point3f(0.0f,0.0f,0.0f),
                                        new Point3f(0.2f,0.01f,0.01f));
@@ -157,8 +157,8 @@ public class Trabalho3 extends JFrame
     rot.rotZ(1.5);
     tfGas.mul(rot);
     tfGas.setTranslation(new Vector3f(1.0f,0.0f,0.5f));
-    Vector3d scale = new Vector3d(3D, 3D, 3D);
-    tfGas.setScale(scale);
+   
+    tfGas.setScale(new Vector3d(3D, 3D, 3D));
     TransformGroup tgGas = new TransformGroup(tfGas);
     tgGas.addChild(s2.getSceneGroup()); 
     
@@ -386,44 +386,82 @@ public class Trabalho3 extends JFrame
     Color3f emissiveColourRamp = new Color3f(0.0f,0.0f,0.0f);
     Color3f diffuseColourRamp = new Color3f(0.8f,0.0f,0.0f);
     Color3f specularColourRamp = new Color3f(1.0f,0.0f,0.0f);
+    
+    Color3f ambientColourObst = new Color3f(0.0f,0.0f,0.0f);
+    Color3f emissiveColourObst = new Color3f(0.0f,0.0f,0.0f);
+    Color3f diffuseColourObst = new Color3f(0.0f,0.0f,1.0f);
+    Color3f specularColourObst = new Color3f(0.0f,0.0f,0.0f);
+    
     float shininessRamp = 10.0f;
+    float shininessObst = 50.0f;
     
     Appearance rampApp = new Appearance();
+    Appearance waterApp = new Appearance();
+    
     rampApp.setMaterial(new Material(ambientColourRamp,emissiveColourRamp,diffuseColourRamp,specularColourRamp,shininessRamp));  
-     
+    waterApp.setMaterial(new Material(ambientColourObst,emissiveColourObst,diffuseColourObst,specularColourObst,shininessObst));  
+    
+    TransparencyAttributes tWater = new TransparencyAttributes();
+    tWater.setTransparencyMode(TransparencyAttributes.BLENDED);
+    tWater.setTransparency(0.7f);
+    waterApp.setTransparencyAttributes(tWater);
+    
+    
     Box myRamp = new Box(1.0f,1f,0.2f,rampApp);
-    Box myObs = new Box(2.0f,1f,0.2f,rampApp);
+    Box myObs = new Box(2.0f,1f,0.2f,waterApp);
+    Box myBorda1 = new Box(0.2f,1f,0.2f,rampApp);
+    Box myBorda2 = new Box(0.2f,1f,0.2f,rampApp);
+    Box myBorda3 = new Box(0.2f,2f,0.2f,rampApp);
+    Box myBorda4 = new Box(0.2f,2f,0.2f,rampApp);
      //Rotate and shift the cube slightly.
     Transform3D tfRamp = new Transform3D();
     Transform3D tfObs = new Transform3D();
-   
+    
+    Transform3D tfBorda1 = new Transform3D();
+    Transform3D tfBorda2 = new Transform3D();
+    Transform3D tfBorda3 = new Transform3D();
+    Transform3D tfBorda4 = new Transform3D();
+    
+    
     tfRamp.rotX(-0.4);
     tfRamp.setTranslation(new Vector3f(0f,-7.2f,-0.1f));
     
-    //tfObs.rotX(-0.4);
     tfObs.setTranslation(new Vector3f(0f,-9.2f,-0.1f));
+    
+    
+    
+    tfBorda1.setTranslation(new Vector3f(2f,-9.2f,-0.1f));
+    tfBorda2.setTranslation(new Vector3f(-2f,-9.2f,-0.1f));
+    
+    tfBorda3.rotZ(1.56);
+    tfBorda4.rotZ(1.56);
+    tfBorda3.setTranslation(new Vector3f(0f,-8.2f,-0.1f));
+    tfBorda4.setTranslation(new Vector3f(0f,-10.2f,-0.1f));
     
     TransformGroup tgRamp = new TransformGroup(tfRamp);
     TransformGroup tgObs = new TransformGroup(tfObs);
-    
+    TransformGroup tgBorda1 = new TransformGroup(tfBorda1);
+    TransformGroup tgBorda2 = new TransformGroup(tfBorda2);
+    TransformGroup tgBorda3 = new TransformGroup(tfBorda3);
+    TransformGroup tgBorda4 = new TransformGroup(tfBorda4);
+   
     tgRamp.addChild(myRamp);
     tgObs.addChild(myObs);
-    
+    tgBorda1.addChild(myBorda1);
+    tgBorda2.addChild(myBorda2);
+    tgBorda3.addChild(myBorda3);
+    tgBorda4.addChild(myBorda4);
     //Generate a sphere ***
 
     //Generate an Appearance for the sphere.
     Color3f ambientColourSphere = new Color3f(0.2f,0.2f,0.0f);
-    Color3f emissiveColourSphere = new Color3f(0.0f,0.0f,0.0f);
+    Color3f emissiveColourSphere = new Color3f(1.0f,0.5f,0.0f);
     Color3f diffuseColourSphere = new Color3f(0.4f,0.4f,0.0f);
     Color3f specularColourSphere = new Color3f(0.8f,0.8f,0.0f);
-    float shininessSphere = 500.0f;
+    float shininessSphere = 100.0f;
 
     Appearance sphereApp = new Appearance();
-    TransparencyAttributes ta1 = new TransparencyAttributes();
-    ta1.setTransparencyMode(TransparencyAttributes.BLENDED);
-    ta1.setTransparency(0.8f);
-    sphereApp.setTransparencyAttributes(ta1);
-    
+       
     sphereApp.setMaterial(new Material(ambientColourSphere,emissiveColourSphere,
                            diffuseColourSphere,specularColourSphere,shininessSphere));
 
@@ -436,7 +474,13 @@ public class Trabalho3 extends JFrame
     TransformGroup tgSphere = new TransformGroup(tfSphere);
     tgSphere.addChild(mySphere);
 
+   
     
+      //Light no. 4: ambient light.
+    Color3f lightColour = new Color3f(1.0f, 1.0f, 1.0f);
+    AmbientLight light = new AmbientLight(lightColour);
+    light.setInfluencingBounds(new BoundingSphere(new Point3d(0.0,0.0,0.0),10));
+    tgSphere.addChild(light);
     
     
     //The Alpha for the car movment.
@@ -444,7 +488,7 @@ public class Trabalho3 extends JFrame
     
     
   // Alpha carAlpha = new Alpha(1,Alpha.INCREASING_ENABLE+Alpha.DECREASING_ENABLE,timeMoveStart,0,5000,5000,5000,5000,5000,0);
-    Alpha carAlpha = new Alpha(5,timeMoveStart,0,6000,2000,2000);
+    Alpha carAlpha = new Alpha(10,timeMoveStart,0,6000,2000,2000);
     //The car movement.
     
     Transform3D axisVei = new Transform3D();
@@ -532,6 +576,10 @@ public class Trabalho3 extends JFrame
     theScene.addChild(tgRamp);
     theScene.addChild(tgObs);
     theScene.addChild(tgTree2);
+    theScene.addChild(tgBorda1);
+    theScene.addChild(tgBorda2);
+    theScene.addChild(tgBorda3);
+    theScene.addChild(tgBorda4);
     
     //The bounding region for the background.
     BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0),Double.MAX_VALUE);
@@ -575,11 +623,11 @@ public class Trabalho3 extends JFrame
 
 
     //Light no. 1: directional light.
-    Color3f lightColour1 = new Color3f(0.0f, 0.0f, 1.0f);
+    Color3f lightColour1 = new Color3f(1.0f, 0.0f, 0.0f);
     Vector3f lightDir1  = new Vector3f(0.0f, 0.0f, -0.1f);
     DirectionalLight light1 = new DirectionalLight(lightColour1, lightDir1);
     light1.setInfluencingBounds(boundsLight);
-    bgLight.addChild(light1);
+    //bgLight.addChild(light1);
 
 
 
@@ -589,7 +637,7 @@ public class Trabalho3 extends JFrame
                                        new Point3f(1.0f,1.0f,1.0f),
                                        new Point3f(0.2f,0.01f,0.01f));
     light2.setInfluencingBounds(boundsLight);
-    bgLight.addChild(light2);
+    //bgLight.addChild(light2);
 
 
     //Light no. 3: a spotlight.
@@ -610,7 +658,7 @@ public class Trabalho3 extends JFrame
     Color3f lightColour4 = new Color3f(1.0f, 1.0f, 1.0f);
     AmbientLight light4 = new AmbientLight(lightColour4);
     light4.setInfluencingBounds(boundsLight);
-    bgLight.addChild(light4);
+    //bgLight.addChild(light4);
 
 
     su.addBranchGraph(bgLight);
