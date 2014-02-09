@@ -12,7 +12,6 @@ import com.sun.j3d.utils.geometry.*;
 import com.sun.j3d.utils.universe.*;
 import com.sun.j3d.utils.behaviors.vp.*;
 import com.sun.j3d.utils.image.TextureLoader;
-import java.awt.GraphicsConfiguration;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import javax.swing.JFrame;
@@ -35,17 +34,13 @@ public class Trabalho3 extends JFrame
     //Mechanism for closing the window and ending the program.
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    
     //Default settings for the viewer parameters.
     myCanvas3D = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
     
     // Manually create the viewing platform so that we can customize it
     ViewingPlatform viewingPlatform = new ViewingPlatform();
 
-    
-    //viewingPlatform.getViewPlatform().setActivationRadius(300f);
-
-    // Set the view position back far enough so that we can see things
+    // Set the view position 
     TransformGroup viewTransform = viewingPlatform.getViewPlatformTransform();
     Transform3D t3d = new Transform3D();
    
@@ -53,41 +48,25 @@ public class Trabalho3 extends JFrame
     t3d.invert();
     viewTransform.setTransform(t3d);
 
-    
     Viewer viewer = new Viewer(myCanvas3D);
     
 
-    
     //Construct the SimpleUniverse:
     //First generate it using the Canvas.
     
     SimpleUniverse universe = new SimpleUniverse(viewingPlatform, viewer);
     
-   
-
-
-    //Default position of the viewer.
-    //universe.getViewingPlatform().setNominalViewingTransform();
-
-
     //The scene is generated in this method.
     createSceneGraph(universe);
 
 
-    //Add some light to the scene.
-    addLight(universe);
-
 
     //The following three lines enable navigation through the scene using the mouse.
-   OrbitBehavior ob = new OrbitBehavior(myCanvas3D);
-   ob.setSchedulingBounds(new BoundingSphere(new Point3d(0.0,0.0,0.0),Double.MAX_VALUE));
-   universe.getViewingPlatform().setViewPlatformBehavior(ob);
+    OrbitBehavior ob = new OrbitBehavior(myCanvas3D);
+    ob.setSchedulingBounds(new BoundingSphere(new Point3d(0.0,0.0,0.0),Double.MAX_VALUE));
+    universe.getViewingPlatform().setViewPlatformBehavior(ob);
 
   
-    
-    
-    
-
     //Show the canvas/window.
     setTitle("Trabalho 3");
     setSize(1200,700);
@@ -96,17 +75,10 @@ public class Trabalho3 extends JFrame
 
   }
 
-
-
-
   public static void main(String[] args)
   {
      Trabalho3 le = new Trabalho3();
   }
-
-
-
-
 
   //In this method, the objects for the scene are generated and added to 
   //the SimpleUniverse.
@@ -120,7 +92,6 @@ public class Trabalho3 extends JFrame
     Scene s3 = null;
     Scene s4 = null; 
     
-    
     try
     {
       s = f.load("lp670.obj");
@@ -132,23 +103,20 @@ public class Trabalho3 extends JFrame
     {
       System.out.println("File loading failed:" + e);
     }
+    
     //Carro
     Transform3D tfVei = new Transform3D();
     tfVei.setTranslation(new Vector3f(0.0f,0f,0.0f));
     TransformGroup tgVei = new TransformGroup(tfVei);
     tgVei.addChild(s.getSceneGroup());  
     
-    //Light no. 2: a point light.
+    //Light no. 2: a point light. Neon do Carro na cor Azul
     Color3f lightColour2 = new Color3f(0.2f, 0.2f, 1.0f);
     PointLight light2 = new PointLight(lightColour2,
                                        new Point3f(0.0f,0.0f,0.0f),
                                        new Point3f(0.2f,0.01f,0.01f));
     light2.setInfluencingBounds(new BoundingSphere(new Point3d(0.0,0.0,0.0),Double.MAX_VALUE));
     tgVei.addChild(light2);
-    
-    
-    
-   
     
     //Gas Station
     Transform3D tfGas = new Transform3D();
@@ -171,12 +139,12 @@ public class Trabalho3 extends JFrame
     tfTree2.rotX(1.56);
     tfTree2.setTranslation(new Vector3f(-1.0f,-14.0f,0.7f));
     
-    
     TransformGroup tgTree = new TransformGroup(tfTree);
     TransformGroup tgTree2 = new TransformGroup(tfTree2);
     
     tgTree.addChild(s3.getSceneGroup()); 
     tgTree2.addChild(s4.getSceneGroup()); 
+    
     //In the following way, the names of the parts of the object can be
     //obtained. The names are printed.
     
@@ -189,6 +157,7 @@ public class Trabalho3 extends JFrame
       name = (String) enumer.nextElement();
       //System.out.println("Name: "+name);
     }  
+    
     //Gas Station
     Hashtable namedObjects2 = s2.getNamedObjects();
     Enumeration enumer2 = namedObjects2.keys();
@@ -198,6 +167,7 @@ public class Trabalho3 extends JFrame
       name2 = (String) enumer2.nextElement();
       //System.out.println("Name: "+name2);
     }  
+    
     //Tree
     Hashtable namedObjects3 = s3.getNamedObjects();
     Enumeration enumer3 = namedObjects3.keys();
@@ -209,8 +179,8 @@ public class Trabalho3 extends JFrame
     }  
     
     
-    
-    //Veículo
+    //Aparências
+    //Carro
     Appearance blackApp = new Appearance();
     Appearance grayApp = new Appearance();
     Appearance darkBlueApp = new Appearance();
@@ -322,8 +292,8 @@ public class Trabalho3 extends JFrame
     partOfTheGasStation.setAppearance(whiteApp);
     
     
-    
-    //Load the image for the texture. (Para o chão)
+    //Texturas para o chão
+    //Load the image for the texture. 
     TextureLoader imgGrass = new TextureLoader("sandtile.jpg",null);
     TextureLoader imgStone = new TextureLoader("stonetile.jpg",null);
     //Generate a (scaled) image of the texture. Height and width must be
@@ -365,8 +335,8 @@ public class Trabalho3 extends JFrame
     stoneApp.setTexCoordGeneration(tcg);  
     
     
-   //Posicionamento do chão
-    Box groundGrass = new Box(20f,20f,0.2f,grassApp);
+    //Posicionamento do chão
+    Box groundGrass = new Box(10f,20f,0.2f,grassApp);
     Box groundStone = new Box(3f,1f,0.001f,stoneApp);
 
     Transform3D groundGrassTrans = new Transform3D();
@@ -380,8 +350,9 @@ public class Trabalho3 extends JFrame
     tgGrass.addChild(groundGrass);
     tgStone.addChild(groundStone);
     
+    
     // Rampa e obstáculo
-    //Generate an Appearance for the cube.
+    //Aparência e Posição
     Color3f ambientColourRamp = new Color3f(0.8f,0.0f,0.0f);
     Color3f emissiveColourRamp = new Color3f(0.0f,0.0f,0.0f);
     Color3f diffuseColourRamp = new Color3f(0.8f,0.0f,0.0f);
@@ -413,7 +384,7 @@ public class Trabalho3 extends JFrame
     Box myBorda2 = new Box(0.2f,1f,0.2f,rampApp);
     Box myBorda3 = new Box(0.2f,2f,0.2f,rampApp);
     Box myBorda4 = new Box(0.2f,2f,0.2f,rampApp);
-     //Rotate and shift the cube slightly.
+
     Transform3D tfRamp = new Transform3D();
     Transform3D tfObs = new Transform3D();
     
@@ -451,7 +422,8 @@ public class Trabalho3 extends JFrame
     tgBorda2.addChild(myBorda2);
     tgBorda3.addChild(myBorda3);
     tgBorda4.addChild(myBorda4);
-    //Generate a sphere ***
+    
+    //Generate a sphere - Sol
 
     //Generate an Appearance for the sphere.
     Color3f ambientColourSphere = new Color3f(0.2f,0.2f,0.0f);
@@ -475,22 +447,22 @@ public class Trabalho3 extends JFrame
     tgSphere.addChild(mySphere);
 
    
-    
-      //Light no. 4: ambient light.
+    //Light no. 4: ambient light. Luz do Sol
     Color3f lightColour = new Color3f(1.0f, 1.0f, 1.0f);
     AmbientLight light = new AmbientLight(lightColour);
     light.setInfluencingBounds(new BoundingSphere(new Point3d(0.0,0.0,0.0),10));
     tgSphere.addChild(light);
     
     
+    
+    //Movimento do Carro
+    
     //The Alpha for the car movment.
     int timeMoveStart =4000; //começa nos 6 segs
     
-    
-  // Alpha carAlpha = new Alpha(1,Alpha.INCREASING_ENABLE+Alpha.DECREASING_ENABLE,timeMoveStart,0,5000,5000,5000,5000,5000,0);
     Alpha carAlpha = new Alpha(10,timeMoveStart,0,6000,2000,2000);
-    //The car movement.
     
+    //The car movement.
     Transform3D axisVei = new Transform3D();
     axisVei.rotZ(-1.56);
     
@@ -544,10 +516,8 @@ public class Trabalho3 extends JFrame
    
     RotPosPathInterpolator carPPI = new RotPosPathInterpolator(carAlpha,tgVei,axisVei,knots,quats,positions);
     
-    
     BoundingSphere boundss = new BoundingSphere(new Point3d(0.0,0.0,0), 1.0);
     
-   
     carPPI.setSchedulingBounds(boundss);
     
     //Add the car movement to the group
@@ -556,14 +526,8 @@ public class Trabalho3 extends JFrame
     tgVei.addChild(carPPI);
     
     
-    
-    
-
-
-
     //*** Generate (the root of) the scenegraph. ***
     BranchGroup theScene = new BranchGroup();
-
 
     //Adiciona os objetos na cena
     
@@ -599,70 +563,14 @@ public class Trabalho3 extends JFrame
 
 
 
-  /**
-  * Generates a default surface (Appearance) in a specified colour.
-  *
-  * @param app      The Appearance for the surface.
-  * @param col      The colour.
-  */
+  
   public static void setToMyDefaultAppearance(Appearance app, Color3f col)
   {
     app.setMaterial(new Material(col,col,col,col,150.0f));
   }
 
 
-  //The different light sources are added to the scene here.
-  public void addLight(SimpleUniverse su)
-  {
-
-    BranchGroup bgLight = new BranchGroup();
-
-    BoundingSphere boundsLight = new BoundingSphere(new Point3d(0.0,0.0,5.0), 8);
-
-
-
-
-    //Light no. 1: directional light.
-    Color3f lightColour1 = new Color3f(1.0f, 0.0f, 0.0f);
-    Vector3f lightDir1  = new Vector3f(0.0f, 0.0f, -0.1f);
-    DirectionalLight light1 = new DirectionalLight(lightColour1, lightDir1);
-    light1.setInfluencingBounds(boundsLight);
-    //bgLight.addChild(light1);
-
-
-
-    //Light no. 2: a point light.
-    Color3f lightColour2 = new Color3f(0.3f, 0.3f, 0.3f);
-    PointLight light2 = new PointLight(lightColour2,
-                                       new Point3f(1.0f,1.0f,1.0f),
-                                       new Point3f(0.2f,0.01f,0.01f));
-    light2.setInfluencingBounds(boundsLight);
-    //bgLight.addChild(light2);
-
-
-    //Light no. 3: a spotlight.
-    Color3f lightColour3 = new Color3f(0.3f, 0.3f, 0.3f);
-    SpotLight light3 = new SpotLight(lightColour3,
-                                     new Point3f(0.0f,0.0f,1.0f),
-                                     new Point3f(0.1f,0.1f,0.01f),
-                                     new Vector3f(0.0f,0.0f,-1.0f),
-                                     (float) (Math.PI/20),
-                                     0.0f);
-
-    light3.setInfluencingBounds(boundsLight);
-    //bgLight.addChild(light3);
-
-
-
-    //Light no. 4: ambient light.
-    Color3f lightColour4 = new Color3f(1.0f, 1.0f, 1.0f);
-    AmbientLight light4 = new AmbientLight(lightColour4);
-    light4.setInfluencingBounds(boundsLight);
-    //bgLight.addChild(light4);
-
-
-    su.addBranchGraph(bgLight);
-  }
+  
 
 
 
